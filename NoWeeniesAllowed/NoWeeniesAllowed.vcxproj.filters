@@ -13,10 +13,54 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="00. Engine">
+      <UniqueIdentifier>{b8bffdda-374a-49dd-8617-498a92830ad9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Engine\Manager">
+      <UniqueIdentifier>{3310b4f5-172c-4bb0-b36d-dd86fb27a1c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Engine\Core">
+      <UniqueIdentifier>{aac9f552-51ed-4ef8-b678-d8a27102a458}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Object">
+      <UniqueIdentifier>{472dfd39-cbb1-4338-9dde-04c018ac5783}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Object\Map">
+      <UniqueIdentifier>{bec2598f-fb21-4e5e-9506-3d62e3d9c48f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Object\Entity">
+      <UniqueIdentifier>{b96cb93c-e238-4a99-a662-37ae1d762fb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Utill">
+      <UniqueIdentifier>{9814f8c6-cc6c-4159-9ec3-6ebe24840dc1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NoWeeniesAllowed.cpp">
+    <ClCompile Include="NoWeeniesAllowed.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MapManager.h">
+      <Filter>00. Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MapGenerator.h">
+      <Filter>01. Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>01. Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="MapFunc.h">
+      <Filter>01. Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="struct.h">
+      <Filter>02. Utill</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>00. Engine\Core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
