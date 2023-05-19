@@ -6,11 +6,6 @@ void MapManagerInit()
 {
 	MapIndexCreate();
 
-	enterMapNode.leftNode = &mapList[0][0];
-	enterMapNode.straightNode = &mapList[0][1];
-	enterMapNode.rightNode = &mapList[0][2];
-
-
 	for (column = 0; column < COLUMN; column++)
 	{
 		for (row = 0; row < ROW; row++)

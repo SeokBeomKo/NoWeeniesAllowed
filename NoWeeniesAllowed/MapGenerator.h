@@ -10,7 +10,7 @@ typedef struct mapInfo MapInfo;
 typedef struct mapNode MapNode;
 typedef enum map_type MAP_TYPE;
 
-// 구조체
+// 열거형
 enum map_type
 {
 	NORMALBATTLE,
@@ -18,6 +18,9 @@ enum map_type
 	REWARD,
 	TRAP
 };
+
+// 구조체
+
 struct mapInfo
 {
 	/*
@@ -65,13 +68,18 @@ MapNode exitMapNode;
 
 // 함수
 
+void MapDoubleCheck();
 
+// 맵 생성 기능
 void MapIndexCreate()
 {
-	// TODO : 이전 노드 또는 다음 노드와 2 칸 떨어져 있는 경우
-	srand(time(NULL));
+	// 시작 지점 설정
+	enterMapNode.leftNode = &mapList[0][0];
+	enterMapNode.straightNode = &mapList[0][1];
+	enterMapNode.rightNode = &mapList[0][2];
 
-	column = 0, row = 0, isFull = 0;
+	srand(time(NULL));
+	isFull = 0;
 
 	// 맵 인덱스 생성 (방이 있는지 비었는지)
 	for (column = 0; column < COLUMN; column++)
@@ -89,6 +97,22 @@ void MapIndexCreate()
 		{
 			mapIndex[column][(ROW / 2) + 1] = 1;
 			isFull = 0;
+		}
+	}
+	MapDoubleCheck();
+}
+
+void MapDoubleCheck()
+{
+	for (column = 0; column < COLUMN - 1; column++)
+	{
+		if (mapIndex[column][0] == 1 && mapIndex[column + 1][0] == 0 && mapIndex[column + 1][1] == 0)
+		{
+			mapIndex[column + 1][rand() % 2] = 1;
+		}
+		if (mapIndex[column][2] == 1 && mapIndex[column + 1][1] == 0 && mapIndex[column + 1][2] == 0)
+		{
+			mapIndex[column + 1][rand() % 2 + 1] = 1;
 		}
 	}
 }
@@ -110,6 +134,8 @@ void MapNodeAdd(int column, int row)
 	}
 }
 
+
+// 맵 그리기 기능
 void StageRender()
 {
 	// 맵 인덱스 생성 확인
