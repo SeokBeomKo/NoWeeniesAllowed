@@ -19,6 +19,15 @@
     <Filter Include="Utill">
       <UniqueIdentifier>{9814f8c6-cc6c-4159-9ec3-6ebe24840dc1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{3310b4f5-172c-4bb0-b36d-dd86fb27a1c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Map">
+      <UniqueIdentifier>{bec2598f-fb21-4e5e-9506-3d62e3d9c48f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Entity">
+      <UniqueIdentifier>{b96cb93c-e238-4a99-a662-37ae1d762fb7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoWeeniesAllowed.c">
@@ -29,14 +38,20 @@
     <ClInclude Include="framework.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="MapGenerator.h">
-      <Filter>Object</Filter>
-    </ClInclude>
     <ClInclude Include="struct.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MapManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MapGenerator.h">
+      <Filter>Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Object\Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

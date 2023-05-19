@@ -10,5 +10,6 @@
 // C 런타임 헤더 파일
 #include <stdio.h>
 #include <stdlib.h>
+
 // Util
 #include "struct.h"

@@ -10,7 +10,8 @@ typedef enum type TYPE;
 
 enum type
 {
-	BATTLE,
+	NORMALBATTLE,
+	ELITEBATTLE,
 	REWARD,
 	TRAP
 };
@@ -18,16 +19,19 @@ enum type
 struct mapInfo
 {
 	/*
-	타입 : (일반 전투맵, 보상맵, 함정맵)
-	적 정보 (0 ~ 3)
+	타입 : (일반 전투맵, 엘리트 전투맵, 보상맵, 함정맵)
+	소환될 적 정보 (0 ~ 3)
+	소환될 적 개체수
+	보상 (골드)
 	*/
 	TYPE type;
 	Enemy enemy[3];
+	int enemyCount;
+	int rewards;
 };
 
 struct mapNode
 {
-	MapNode* curNode;
 	/*
 	다음 맵 노드를 가지고 있음
 	*/
@@ -42,7 +46,7 @@ int main()
 {
 	system("mode con:lines=150 cols=50");		// 콘솔창 크기
 
-	MapIndexCreate(mapIndex);
+	MapIndexCreate();
 	Temp();
 
 }

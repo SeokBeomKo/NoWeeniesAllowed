@@ -23,7 +23,7 @@ static int		column = 0, row = 0, isFull = 0;
 
 // 함수
 
-void MapIndexCreate(int index[][ROW])
+void MapIndexCreate()
 {
 	// TODO : 이전 노드 또는 다음 노드와 2 칸 떨어져 있는 경우
 	srand(time(NULL));
@@ -41,10 +41,11 @@ void MapIndexCreate(int index[][ROW])
 
 			// 예외 : 모든 방이 비어있다면 최소 한개의 방을 가운데 생성
 			isFull += mapIndex[column][row];
-			if (isFull == 0)
-			{
-				mapIndex[column][(ROW / 2) + 1] = 1;
-			}
+		}
+		if (isFull == 0)
+		{
+			mapIndex[column][(ROW / 2) + 1] = 1;
+			isFull = 0;
 		}
 	}
 }
