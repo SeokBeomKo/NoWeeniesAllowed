@@ -3,6 +3,8 @@
 #include <time.h>			// 랜덤
 #include "Enemy.h"
 
+
+// TODO : 값 변경값에 맞게 자동 맞춤
 #define COLUMN		10
 #define ROW			3
 
@@ -65,19 +67,17 @@ static int		column = 0, row = 0, isFull = 0;
 MapNode mapList[COLUMN][ROW] = { 0 };
 MapNode enterMapNode;
 MapNode exitMapNode;
+MapNode *curMapNode;
 
 // 함수
 
 void MapDoubleCheck();
+void MapNodeAdd(int column, int row);
+void CurRender(MapNode node);
 
 // 맵 생성 기능
 void MapIndexCreate()
 {
-	// 시작 지점 설정
-	enterMapNode.leftNode = &mapList[0][0];
-	enterMapNode.straightNode = &mapList[0][1];
-	enterMapNode.rightNode = &mapList[0][2];
-
 	srand(time(NULL));
 	isFull = 0;
 
@@ -101,7 +101,6 @@ void MapIndexCreate()
 	}
 	MapDoubleCheck();
 }
-
 void MapDoubleCheck()
 {
 	for (column = 0; column < COLUMN - 1; column++)
@@ -113,6 +112,32 @@ void MapDoubleCheck()
 		if (mapIndex[column][2] == 1 && mapIndex[column + 1][1] == 0 && mapIndex[column + 1][2] == 0)
 		{
 			mapIndex[column + 1][rand() % 2 + 1] = 1;
+		}
+	}
+}
+
+void MapListCreate()
+{
+	// 시작 지점 설정
+	curMapNode = &enterMapNode;
+	curMapNode->isStay = 1;
+
+	enterMapNode.leftNode = &mapList[0][0];
+	enterMapNode.straightNode = &mapList[0][1];
+	enterMapNode.rightNode = &mapList[0][2];
+
+	for (column = 0; column < COLUMN; column++)
+	{
+		for (row = 0; row < ROW; row++)
+		{
+			if (mapIndex[column][row] == 1)
+			{
+				mapList[column][row].isFull = 1;
+				mapList[column][row].info.enemyCount = rand() % 3 + 1;
+				// 맵에 생성될 적 개체 수
+				// printf("mapList[%d][%d] : %d\n", column, row, mapList[column][row].info.enemyCount);
+				MapNodeAdd(column, row);
+			}
 		}
 	}
 }
@@ -136,44 +161,6 @@ void MapNodeAdd(int column, int row)
 
 
 // 맵 그리기 기능
-void StageRender()
-{
-	// 맵 인덱스 생성 확인
-	for (column = 0; column < COLUMN; column++)
-	{
-		// 맵 정보 나타낼 때
-		for (row = 0; row < ROW; row++)
-		{
-			if (mapList[column][row].isFull == 1)
-			{
-				printf("  □\t");
-			}
-			else
-			{
-				printf("  \t");
-			}
-		}
-		printf("\n");
-		// 맵의 다음 선택지 나타낼 때
-		// TODO : 첫 시작과 마지막 예외처리
-		for (row = 0; row < ROW; row++)
-		{
-			if (column == COLUMN - 1)
-				break;
-			if (mapList[column][row].isFull)		// 노드가 있다면
-			{
-				if (mapList[column][row].leftNode != NULL)	printf("↙");
-				else printf("  ");
-				if (mapList[column][row].straightNode != NULL)	printf("↓");
-				else printf("  ");
-				if (mapList[column][row].rightNode != NULL)	printf("↘");
-				else printf("  ");
-			}
-			printf("\t");
-		}
-		if (column != COLUMN - 1) printf("\n");
-	}
-}
 void EnterRender()
 {
 	// 시작 지점 렌더
@@ -181,8 +168,7 @@ void EnterRender()
 	{
 		printf("\t  ");
 	}
-	// TODO : 현재 위치한 곳을 색채워서
-	printf("■");
+	CurRender(enterMapNode);
 	for (row = 0; row < ROW - 2; row++)
 	{
 		printf("  \t");
@@ -210,6 +196,46 @@ void EnterRender()
 		}
 	}
 	printf("\n");
+}
+void StageRender()
+{
+	// 맵 인덱스 생성 확인
+	for (column = 0; column < COLUMN; column++)
+	{
+		// 맵 정보 나타낼 때
+		for (row = 0; row < ROW; row++)
+		{
+			if (mapList[column][row].isFull == 1)
+			{
+				printf("  ");
+				CurRender(mapList[column][row]);
+				printf("\t");
+			}
+			else
+			{
+				printf("  \t");
+			}
+		}
+		printf("\n");
+		// 맵의 다음 선택지 나타낼 때
+		// TODO : 첫 시작과 마지막 예외처리
+		for (row = 0; row < ROW; row++)
+		{
+			if (column == COLUMN - 1)
+				break;
+			if (mapList[column][row].isFull)		// 노드가 있다면
+			{
+				if (mapList[column][row].leftNode != NULL)	printf("↙");
+				else printf("  ");
+				if (mapList[column][row].straightNode != NULL)	printf("↓");
+				else printf("  ");
+				if (mapList[column][row].rightNode != NULL)	printf("↘");
+				else printf("  ");
+			}
+			printf("\t");
+		}
+		if (column != COLUMN - 1) printf("\n");
+	}
 }
 void ExitRender()
 {
@@ -246,4 +272,12 @@ void ExitRender()
 	{
 		printf("  \t");
 	}
+	printf("\n");
+}
+
+// 현재 위치 그리기 기능
+void CurRender(MapNode node)
+{
+	if (node.isStay == 0)	printf("□");
+	else					printf("■");
 }

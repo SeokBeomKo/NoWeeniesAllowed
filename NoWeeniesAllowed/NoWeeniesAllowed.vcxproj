@@ -130,9 +130,10 @@
     <ClCompile Include="NoWeeniesAllowed.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Map.h" />
+    <ClInclude Include="MapFunc.h" />
     <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="struct.h" />

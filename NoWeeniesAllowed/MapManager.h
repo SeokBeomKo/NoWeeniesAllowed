@@ -1,25 +1,12 @@
 #pragma once
 #include "framework.h"
 #include "MapGenerator.h"
+#include "MapFunc.h"
 
 void MapManagerInit()
 {
 	MapIndexCreate();
-
-	for (column = 0; column < COLUMN; column++)
-	{
-		for (row = 0; row < ROW; row++)
-		{
-			if (mapIndex[column][row] == 1)
-			{
-				mapList[column][row].isFull = 1;
-				mapList[column][row].info.enemyCount = rand() % 3 + 1;
-				// 맵에 생성될 적 개체 수
-				// printf("mapList[%d][%d] : %d\n", column, row, mapList[column][row].info.enemyCount);
-				MapNodeAdd(column, row);
-			}
-		}
-	}
+	MapListCreate();
 }
 
 void MapManagerRender()
