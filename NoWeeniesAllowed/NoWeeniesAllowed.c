@@ -47,6 +47,7 @@ MapNode mapList[COLUMN][ROW] = {0};
 MapNode curMap;
 
 void MapRender();
+void MapNodeAdd(int column, int row);
 
 int main()
 {
@@ -73,12 +74,31 @@ int main()
 				mapList[column][row].info.enemyCount = rand() % 3 + 1;
 				// 맵에 생성될 적 개체 수
 				// printf("mapList[%d][%d] : %d\n", column, row, mapList[column][row].info.enemyCount);
-				// 다음 노드 정보 넣기
-				if ()
+				if (column < 9)
+					MapNodeAdd(column,row);
 			}
 		}
 	}
 	MapRender();
+
+	return 0;
+}
+
+void MapNodeAdd(int column, int row)
+{
+	// 다음 노드 정보 넣기
+	if (mapIndex[column + 1][row - 1] == 1 && row != 0)
+	{
+		mapList[column][row].leftNode = &mapList[column + 1][row - 1];
+	}
+	if (mapIndex[column + 1][row] == 1)
+	{
+		mapList[column][row].straightNode = &mapList[column + 1][row];
+	}
+	if (mapIndex[column + 1][row + 1] == 1 && row != ROW-1)
+	{
+		mapList[column][row].rightNode = &mapList[column + 1][row + 1];
+	}
 }
 
 void MapRender()
@@ -86,54 +106,50 @@ void MapRender()
 	// 시작 지점 렌더
 	for (int i = 0; i < ROW - 2; i++)
 	{
-		printf("\t");
+		printf("\t  ");
 	}
 	printf("■");
 	for (int i = 0; i < ROW - 2; i++)
 	{
-		printf("\t");
+		printf("  \t");
 	}
 	printf("\n");
 
 	column = 0, row = 0;
 	// 맵 인덱스 생성 확인
-	for (column = 0; column < COLUMN * 2 + 1; column++)
+	for (column = 0; column < COLUMN; column++)
 	{
 		// 맵 정보 나타낼 때
-		if (column % 2 == 1)
-		{
-			for (row = 0; row < ROW; row++)
-			{
-				// TODO : 첫 시작과 마지막 예외처리
-				if (mapList[column / 2 - 1][row].isFull == 1 || column == 1)
-				{
-					printf("□\t");
-				}
-				else
-				{
-					printf(" \t");
-				}
-			}
-		}
-		// 맵의 다음 선택지 나타낼 때
-		else
+		for (row = 0; row < ROW; row++)
 		{
 			// TODO : 첫 시작과 마지막 예외처리
-			for (row = 0; row < ROW; row++)
+			if (mapList[column][row].isFull == 1)
 			{
-				if (mapList[column / -1][row].isFull)		// 전 노드가 있다면
-				{
-
-				}
-
-				/*
-				전 3개 후 3개 비교
-
-				*/
-
+				printf("  □\t");
 			}
-			//printf("   ↙   ↓   ↘");
+			else
+			{
+				printf("  \t");
+			}
 		}
 		printf("\n");
+		// 맵의 다음 선택지 나타낼 때
+		// TODO : 첫 시작과 마지막 예외처리
+		for (row = 0; row < ROW; row++)
+		{
+			if (mapList[column][row].isFull)		// 노드가 있다면
+			{
+				if (mapList[column][row].leftNode != NULL)	printf("↙");
+				else printf("  ");
+				if (mapList[column][row].straightNode != NULL)	printf("↓");
+				else printf("  ");
+				if (mapList[column][row].rightNode != NULL)	printf("↘");
+				else printf("  ");
+				
+			}
+			printf("\t");
+		}
+		printf("\n");
+		//printf("   ↙   ↓   ↘");
 	}
 }
