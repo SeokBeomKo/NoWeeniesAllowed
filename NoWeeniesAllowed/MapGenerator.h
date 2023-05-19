@@ -31,11 +31,11 @@ void MapIndexCreate()
 	column = 0, row = 0, isFull = 0;
 
 	// 맵 인덱스 생성 (방이 있는지 비었는지)
-	for (column = 0; column < 10; column++)
+	for (column = 0; column < COLUMN; column++)
 	{
 		// 방이 비어있는지 확인 값 초기화
 		isFull = 0;
-		for (row = 0; row < 3; row++)
+		for (row = 0; row < ROW; row++)
 		{
 			mapIndex[column][row] = rand() % 2;
 
@@ -57,9 +57,9 @@ void Temp()
 {
 	column = 0, row = 0;
 	// 맵 인덱스 생성 확인
-	for (column = 0; column < 10; column++)
+	for (column = 0; column < COLUMN; column++)
 	{
-		for (row = 0; row < 3; row++)
+		for (row = 0; row < ROW; row++)
 		{
 			if (mapIndex[column][row] == 0)
 			{

@@ -15,3 +15,8 @@ typedef struct enemy
 	int		att;
 	int		def;
 }Enemy;
+
+void Init()
+{
+
+}
