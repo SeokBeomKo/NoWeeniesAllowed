@@ -33,6 +33,7 @@ struct mapInfo
 struct mapNode
 {
 	int isFull;			// 맵이 비어있는지 확인
+	int isStay;			// 플레이어가 위치했는지 확인
 	/*
 	다음 맵 노드를 가지고 있음
 	*/
@@ -44,10 +45,13 @@ struct mapNode
 };
 
 MapNode mapList[COLUMN][ROW] = {0};
-MapNode curMap;
+MapNode enterMapNode;
+MapNode exitMapNode;
 
 void MapRender();
 void MapNodeAdd(int column, int row);
+void EnterRender();
+void ExitRender();
 
 int main()
 {
@@ -59,9 +63,9 @@ int main()
 	column = 0, row = 0;
 
 	
-	curMap.leftNode = &mapList[0][0];
-	curMap.straightNode = &mapList[0][1];
-	curMap.rightNode = &mapList[0][2];
+	enterMapNode.leftNode = &mapList[0][0];
+	enterMapNode.straightNode = &mapList[0][1];
+	enterMapNode.rightNode = &mapList[0][2];
 
 
 	for (column = 0; column < COLUMN; column++)
@@ -74,8 +78,7 @@ int main()
 				mapList[column][row].info.enemyCount = rand() % 3 + 1;
 				// 맵에 생성될 적 개체 수
 				// printf("mapList[%d][%d] : %d\n", column, row, mapList[column][row].info.enemyCount);
-				if (column < 9)
-					MapNodeAdd(column,row);
+				MapNodeAdd(column,row);
 			}
 		}
 	}
@@ -103,17 +106,7 @@ void MapNodeAdd(int column, int row)
 
 void MapRender()
 {
-	// 시작 지점 렌더
-	for (int i = 0; i < ROW - 2; i++)
-	{
-		printf("\t  ");
-	}
-	printf("■");
-	for (int i = 0; i < ROW - 2; i++)
-	{
-		printf("  \t");
-	}
-	printf("\n");
+	EnterRender();
 
 	column = 0, row = 0;
 	// 맵 인덱스 생성 확인
@@ -137,6 +130,8 @@ void MapRender()
 		// TODO : 첫 시작과 마지막 예외처리
 		for (row = 0; row < ROW; row++)
 		{
+			if (column == COLUMN - 1)
+				break;
 			if (mapList[column][row].isFull)		// 노드가 있다면
 			{
 				if (mapList[column][row].leftNode != NULL)	printf("↙");
@@ -145,11 +140,83 @@ void MapRender()
 				else printf("  ");
 				if (mapList[column][row].rightNode != NULL)	printf("↘");
 				else printf("  ");
-				
 			}
 			printf("\t");
 		}
-		printf("\n");
-		//printf("   ↙   ↓   ↘");
+		if (column != COLUMN - 1) printf("\n");
+	}
+	ExitRender();
+}
+void EnterRender()
+{
+	// 시작 지점 렌더
+	for (row = 0; row < ROW - 2; row++)
+	{
+		printf("\t  ");
+	}
+	// TODO : 현재 위치한 곳을 색채워서
+	printf("■");
+	for (row = 0; row < ROW - 2; row++)
+	{
+		printf("  \t");
+	}
+	printf("\n");
+	printf("\t");
+	for (row = 0; row < ROW; row++)
+	{
+		switch (row)
+		{
+		case 0:
+			if (mapList[0][row].isFull)	printf("↙");
+			else printf("  ");
+			break;
+		case 1:
+			if (mapList[0][row].isFull)	printf("↓");
+			else printf("  ");
+			break;
+		case 2:
+			if (mapList[0][row].isFull)	printf("↘");
+			else printf("  ");
+			break;
+		default:
+			break;
+		}
+	}
+	printf("\n");
+}
+void ExitRender()
+{
+	printf("\t");
+	for (row = 0; row < ROW; row++)
+	{
+		switch (row)
+		{
+		case 0:
+			if (mapList[9][row].isFull)	printf("↘");
+			else printf("  ");
+			break;
+		case 1:
+			if (mapList[9][row].isFull)	printf("↓");
+			else printf("  ");
+			break;
+		case 2:
+			if (mapList[9][row].isFull)	printf("↙");
+			else printf("  ");
+			break;
+		default:
+			break;
+		}
+	}
+	printf("\n");
+	// 보스 진입 렌더
+	for (row = 0; row < ROW - 2; row++)
+	{
+		printf("\t  ");
+	}
+	// TODO : 현재 위치한 곳을 색채워서
+	printf("☆");
+	for (row = 0; row < ROW - 2; row++)
+	{
+		printf("  \t");
 	}
 }
