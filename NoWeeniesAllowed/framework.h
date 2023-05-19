@@ -11,5 +11,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Core & Manager
+#include "MapManager.h"
+
 // Util
 #include "struct.h"

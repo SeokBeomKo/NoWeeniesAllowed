@@ -10,7 +10,7 @@ typedef struct enemy
 	공격력
 	방어력
 	*/
-	string	name;
+	//string	name;
 	int		hp;
 	int		att;
 	int		def;
