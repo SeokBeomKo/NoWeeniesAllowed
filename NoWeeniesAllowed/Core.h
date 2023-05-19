@@ -1,18 +1,18 @@
 #pragma once
 #include "framework.h"
 
-int stop;
 
 void Core_Init()
 {
+	SceneManagerInit();
 	MapManagerInit();
 }
 
 void Core_Update()
 {
-	while (1)
+	while (TRUE)
 	{
-		MapManagerRender();
-		SelectMove();
+		SceneManagerUpdate();
+		MapManagerUpdate();
 	}
 }

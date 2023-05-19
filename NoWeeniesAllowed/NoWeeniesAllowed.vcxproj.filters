@@ -34,6 +34,18 @@
     <Filter Include="02. Utill">
       <UniqueIdentifier>{9814f8c6-cc6c-4159-9ec3-6ebe24840dc1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Scene">
+      <UniqueIdentifier>{444b87cf-0b7f-445c-9110-08aa6c56e3bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\Main">
+      <UniqueIdentifier>{a01e4b03-c513-43ea-82d1-9da4e0068a9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\Battle">
+      <UniqueIdentifier>{3e991a57-37cb-4d0b-b235-f9d9b8555df6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\Map">
+      <UniqueIdentifier>{b23ae4de-724f-4f8a-8b08-1ab1973a1df5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoWeeniesAllowed.c">
@@ -61,6 +73,12 @@
     </ClInclude>
     <ClInclude Include="Core.h">
       <Filter>00. Engine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>00. Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>03. Scene\Main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

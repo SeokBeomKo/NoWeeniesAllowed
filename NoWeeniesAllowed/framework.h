@@ -13,6 +13,7 @@
 
 // Core & Manager
 #include "MapManager.h"
+#include "SceneManager.h"
 
 // Util
 #include "struct.h"

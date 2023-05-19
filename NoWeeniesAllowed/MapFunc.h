@@ -25,8 +25,10 @@ void MoveFunc(MapNode* node);
 void SelectMove()
 {
 	printf("\n");
+	printf("1 번 : 왼쪽\t2 번 : 중앙\t3 번 : 오른쪽\n");
 	printf(" 이동할 장소 입력 : ");
 	scanf_s("%d", &scanMove);
+	system("cls");
 	Move(scanMove);
 }
 
@@ -52,7 +54,7 @@ void MoveFunc(MapNode* node)
 {
 	if (node == NULL)
 	{
-		printf("이동할 수 없습니다\n");
+		printf("!!!! 이동할 수 없습니다 !!!\n\n");
 		return;
 	}
 	curMapNode->isStay = 0;

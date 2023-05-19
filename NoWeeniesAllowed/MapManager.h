@@ -9,9 +9,11 @@ void MapManagerInit()
 	MapListCreate();
 }
 
-void MapManagerRender()
+void MapManagerUpdate()
 {
 	EnterRender();
 	StageRender();
 	ExitRender();
+
+	SelectMove();
 }
