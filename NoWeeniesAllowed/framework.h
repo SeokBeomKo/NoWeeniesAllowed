@@ -36,13 +36,15 @@ enum SCENE_TYPE
 #include <stdlib.h>
 #include <conio.h>
 
+// Util
+#include "struct.h"
+#include "WFunc.h"
+
 // Core & Manager
 #include "MapManager.h"
 #include "SceneManager.h"
 
-// Util
-#include "struct.h"
-#include "WFunc.h"
+
 
 
 

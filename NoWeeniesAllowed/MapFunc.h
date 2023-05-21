@@ -15,8 +15,9 @@ void MoveFunc(MapNode* node);
 
 void SelectMove()
 {
-	printf("\n");
-	printf("1 번 : 왼쪽\t2 번 : 중앙\t3 번 : 오른쪽\n");
+	GotoXY(44, 48);
+	printf("1 : ↙\t2 : ↓\t3 : ↘\n");
+	GotoXY(45, 51);
 	printf(" 이동할 장소 입력 : ");
 	scanf_s("%d", &scanMove);
 	system("cls");
