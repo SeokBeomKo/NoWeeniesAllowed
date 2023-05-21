@@ -1,16 +1,6 @@
 #pragma once
 #include "framework.h"
 
-typedef enum move_type MOVE_TYPE;
-
-// 열거형
-enum move_type
-{
-	LEFT = 1,
-	STRAIGHT,
-	RIGHT
-};
-
 
 // 변수
 

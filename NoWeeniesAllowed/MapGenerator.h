@@ -78,6 +78,7 @@ void SetConsoleTextColor(int color_number);
 void MapDoubleCheck();
 void MapNodeAdd(int column, int row);
 void CurRender(MapNode node, int column);
+void CurDirRender(int dir, int column);
 
 // 맵 생성 기능
 void MapIndexCreate()
@@ -208,15 +209,15 @@ void EnterRender()
 		switch (row)
 		{
 		case 0:
-			if (mapList[0][row].isFull)	printf("↙");
+			if (mapList[0][row].isFull)	CurDirRender(LEFT,-1);
 			else printf("  ");
 			break;
 		case 1:
-			if (mapList[0][row].isFull)	printf("↓");
+			if (mapList[0][row].isFull)	CurDirRender(STRAIGHT, -1);
 			else printf("  ");
 			break;
 		case 2:
-			if (mapList[0][row].isFull)	printf("↘");
+			if (mapList[0][row].isFull)	CurDirRender(RIGHT, -1);
 			else printf("  ");
 			break;
 		default:
@@ -253,11 +254,11 @@ void StageRender()
 				break;
 			if (mapList[column][row].isFull)		// 노드가 있다면
 			{
-				if (mapList[column][row].leftNode != NULL)	printf("↙");
+				if (mapList[column][row].leftNode != NULL)	CurDirRender(LEFT, column);
 				else printf("  ");
-				if (mapList[column][row].straightNode != NULL)	printf("↓");
+				if (mapList[column][row].straightNode != NULL)	CurDirRender(STRAIGHT, column);
 				else printf("  ");
-				if (mapList[column][row].rightNode != NULL)	printf("↘");
+				if (mapList[column][row].rightNode != NULL)	CurDirRender(RIGHT, column);
 				else printf("  ");
 			}
 			printf("\t");
@@ -332,10 +333,21 @@ void CurRender(MapNode node, int column)
 	}
 
 	// 돌아갈 수 없는 노드
-	else if (node.isColumn < clearcolumn)
+	else if (node.isColumn <= clearcolumn)
 	{
 		SetConsoleTextColor(8);
-		printf("□");
+		switch (node.info.type)
+		{
+		case 3:
+			printf("＄");
+			break;
+		case 4:
+			printf("×");
+			break;
+		default:
+			printf("□");
+			break;
+		}
 		SetConsoleTextColor(15);
 	}
 
@@ -359,4 +371,29 @@ void CurRender(MapNode node, int column)
 		}
 	}
 
+}
+void CurDirRender(int dir, int column)
+{
+	int clearcolumn = curMapNode->isColumn;
+
+	if (column < clearcolumn)
+	{
+		SetConsoleTextColor(8);
+	}
+
+	switch (dir)
+	{
+	case 1:
+		printf("↙");
+		break;
+	case 2:
+		printf("↓");
+		break;
+	case 3:
+		printf("↘");
+		break;
+	default:
+		break;
+	}
+	SetConsoleTextColor(15);
 }

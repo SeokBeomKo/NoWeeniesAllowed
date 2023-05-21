@@ -7,6 +7,16 @@
 //## 게임 그룹							##
 //========================================
 
+typedef enum move_type MOVE_TYPE;
+
+// 열거형
+enum move_type
+{
+	LEFT = 1,
+	STRAIGHT,
+	RIGHT
+};
+
 enum SCENE_TYPE
 {
 	MAIN,
