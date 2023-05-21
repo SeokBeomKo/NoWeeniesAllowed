@@ -43,7 +43,7 @@
     <Filter Include="03. Scene\00. Main">
       <UniqueIdentifier>{a01e4b03-c513-43ea-82d1-9da4e0068a9f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Scene\01. Battle">
+    <Filter Include="03. Scene\01. MapNode">
       <UniqueIdentifier>{3e991a57-37cb-4d0b-b235-f9d9b8555df6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -84,16 +84,22 @@
       <Filter>03. Scene\Map</Filter>
     </ClInclude>
     <ClInclude Include="BattleScene.h">
-      <Filter>03. Scene\01. Battle</Filter>
+      <Filter>03. Scene\01. MapNode</Filter>
     </ClInclude>
     <ClInclude Include="BossBattleScene.h">
-      <Filter>03. Scene\01. Battle</Filter>
+      <Filter>03. Scene\01. MapNode</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>03. Scene</Filter>
     </ClInclude>
     <ClInclude Include="WFunc.h">
       <Filter>02. Utill</Filter>
+    </ClInclude>
+    <ClInclude Include="RewardScene.h">
+      <Filter>03. Scene\01. MapNode</Filter>
+    </ClInclude>
+    <ClInclude Include="TrapScene.h">
+      <Filter>03. Scene\01. MapNode</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

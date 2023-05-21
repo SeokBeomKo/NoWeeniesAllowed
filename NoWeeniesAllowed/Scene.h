@@ -4,10 +4,9 @@
 #include "MainScene.h"
 #include "MapScene.h"
 #include "BattleScene.h"
+#include "RewardScene.h"
+#include "TrapScene.h"
 #include "BossBattleScene.h"
-
-typedef struct scene Scene;
-
 
 int curScene = 0;
 
@@ -34,6 +33,16 @@ void SceneUpdate()
 		ExitScene();
 		break;
 	case 3:
+		EnterScene();
+		RewardSceneUpdate();
+		ExitScene();
+		break;
+	case 4:
+		EnterScene();
+		TrapSceneUpdate();
+		ExitScene();
+		break;
+	case 5:
 		EnterScene();
 		BossBattleSceneUpdate();
 		ExitScene();

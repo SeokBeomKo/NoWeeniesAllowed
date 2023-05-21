@@ -10,23 +10,23 @@
 
 typedef struct mapInfo MapInfo;
 typedef struct mapNode MapNode;
-typedef enum map_type MAP_TYPE;
-
-// 열거형
-
-enum map_type
-{
-	BATTLE,
-	REWARD,
-	TRAP
-};
+//typedef enum map_type MAP_TYPE;
+//
+//// 열거형
+//
+//enum map_type
+//{
+//	BATTLE = 2,
+//	REWARD,
+//	TRAP
+//};
 
 // 구조체
 
 struct mapInfo
 {
 	/*
-	타입 : (일반 전투맵, 엘리트 전투맵, 보상맵, 함정맵)
+	타입 : (일반 전투맵 : 2, 보상맵 : 3, 함정맵 : 4)
 	소환될 적 정보 (0 ~ 3)
 	소환될 적 개체수
 	보상 (골드)
@@ -137,7 +137,7 @@ void MapListCreate()
 	{
 		for (row = 0; row < ROW; row++)
 		{
-			if (mapIndex[column][row] == 1)
+			if (mapIndex[column][row])
 			{
 				mapList[column][row].isFull = 1;
 				mapList[column][row].isClear = 0;
@@ -148,24 +148,22 @@ void MapListCreate()
 				type = rand() % 10;
 
 				// 전투 맵
-				if (type > 6)		
+				if (type < 6)		
 				{
 					mapList[column][row].info.type = (int)BATTLE;
+					// 맵에 생성될 적 개체 수
 					mapList[column][row].info.enemyCount = rand() % 3 + 1;
 				}
 				// 보물 맵
-				else if (type > 8)
+				else if (type < 8)
 				{
 					mapList[column][row].info.type = (int)REWARD;
 				}
 				// 함정 맵
-				else if (type > 10)
+				else if (type < 10)
 				{
 					mapList[column][row].info.type = (int)TRAP;
 				}
-				
-				// 맵에 생성될 적 개체 수
-				// printf("mapList[%d][%d] : %d\n", column, row, mapList[column][row].info.enemyCount);
 				MapNodeAdd(column, row);
 			}
 		}
@@ -235,7 +233,7 @@ void StageRender()
 		// 맵 정보 나타낼 때
 		for (row = 0; row < ROW; row++)
 		{
-			if (mapList[column][row].isFull == 1)
+			if (mapList[column][row].isFull)
 			{
 				printf("  ");
 				CurRender(mapList[column][row],column);
@@ -246,7 +244,7 @@ void StageRender()
 				printf("  \t");
 			}
 		}
-		printf("\n");
+		printf("\n\n");
 		// 맵의 다음 선택지 나타낼 때
 		// TODO : 첫 시작과 마지막 예외처리
 		for (row = 0; row < ROW; row++)
@@ -264,6 +262,7 @@ void StageRender()
 			}
 			printf("\t");
 		}
+		printf("\n");
 		if (column != COLUMN - 1) printf("\n");
 	}
 }
@@ -317,10 +316,10 @@ void CurRender(MapNode node, int column)
 	int clearcolumn = curMapNode->isColumn;
 
 	// 현재 있는 노드
-	if (node.isStay == 1)
+	if (node.isStay)
 	{
 		SetConsoleTextColor(12);
-		printf("■");
+		printf("▣");
 		SetConsoleTextColor(15);
 	}
 
@@ -343,7 +342,21 @@ void CurRender(MapNode node, int column)
 	// 가야할 노드
 	else
 	{
-		printf("□");
+		// 타입에 따라 다르게
+		switch (node.info.type)
+		{
+		case 2:	// 전투맵
+			printf("□");
+			break;
+		case 3:	// 보상맵
+			printf("？");
+			break;
+		case 4:	// 함정맵 (보상과 동일)
+			printf("？");
+			break;
+		default:
+			break;
+		}
 	}
 
 }

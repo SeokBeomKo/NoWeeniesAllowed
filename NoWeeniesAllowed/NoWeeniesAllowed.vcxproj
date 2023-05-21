@@ -140,9 +140,11 @@
     <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="MapScene.h" />
+    <ClInclude Include="RewardScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="struct.h" />
+    <ClInclude Include="TrapScene.h" />
     <ClInclude Include="WFunc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

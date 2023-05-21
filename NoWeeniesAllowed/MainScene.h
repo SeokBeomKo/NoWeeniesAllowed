@@ -1,14 +1,22 @@
 #pragma once
 #include "framework.h"
 
-#define MAIN 0
-#define MAP 1
-#define BATTLE 2
-#define BOSS 3
 
 void SetConsoleTextColor(int color_number);
+void MainLogoRender();
 
 void MainSceneUpdate()
+{
+	MainLogoRender();
+
+	SetConsoleTextColor(1);
+	printf("Press Any Button");
+	SetConsoleTextColor(15);
+	_getch();
+	ChangeScene(MAP);
+}
+
+void MainLogoRender()
 {
 	// TODO : 堅纂晦
 	printf("\n\n\n\n\n");
@@ -35,10 +43,4 @@ void MainSceneUpdate()
 	printf("弛   /__/     1__1 |_______||_______| 1______/      1__/  1__/     |_______||_______/           弛\n");
 	printf("戌式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式戎\n");
 	printf("\n");
-
-	SetConsoleTextColor(1);
-	printf("Press Any Button");
-	SetConsoleTextColor(15);
-	_getch();
-	ChangeScene(MAP);
 }
