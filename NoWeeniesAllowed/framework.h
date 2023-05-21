@@ -7,6 +7,8 @@
 //## 게임 그룹							##
 //========================================
 
+typedef struct player Player;
+
 typedef enum move_type MOVE_TYPE;
 
 // 열거형
@@ -41,6 +43,7 @@ enum SCENE_TYPE
 #include "WFunc.h"
 
 // Core & Manager
+#include "GameManager.h"
 #include "MapManager.h"
 #include "SceneManager.h"
 

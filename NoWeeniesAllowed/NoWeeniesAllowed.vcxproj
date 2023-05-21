@@ -130,19 +130,23 @@
     <ClCompile Include="NoWeeniesAllowed.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Battle.h" />
     <ClInclude Include="BattleScene.h" />
     <ClInclude Include="BossBattleScene.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="MapFunc.h" />
     <ClInclude Include="MapGenerator.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="MapScene.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="RewardScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Skill.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="TrapScene.h" />
     <ClInclude Include="WFunc.h" />

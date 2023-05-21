@@ -46,6 +46,12 @@
     <Filter Include="03. Scene\01. MapNode">
       <UniqueIdentifier>{3e991a57-37cb-4d0b-b235-f9d9b8555df6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Object\Skill">
+      <UniqueIdentifier>{55b1dee7-9e76-4430-80b2-5fe8c07b9a30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Object\Battle">
+      <UniqueIdentifier>{ebfab17a-edfd-4001-8da6-fe6451b81b6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoWeeniesAllowed.c">
@@ -100,6 +106,18 @@
     </ClInclude>
     <ClInclude Include="TrapScene.h">
       <Filter>03. Scene\01. MapNode</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>01. Object\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>00. Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>01. Object\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Battle.h">
+      <Filter>01. Object\Battle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
