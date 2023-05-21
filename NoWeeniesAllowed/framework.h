@@ -10,6 +10,7 @@
 // C 런타임 헤더 파일
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 
 // Core & Manager
 #include "MapManager.h"
@@ -17,8 +18,17 @@
 
 // Util
 #include "struct.h"
+#include "WFunc.h"
 
 //========================================
-//## 맵 타입							##
+//## 게임 그룹							##
 //========================================
 
+#define MAP 1
+
+//========================================
+//## 함수 정의							##
+//========================================
+
+//void ChangeScene(int scene);
+//void SetConsoleTextColor(int color_number);

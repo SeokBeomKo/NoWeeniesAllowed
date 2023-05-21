@@ -19,6 +19,7 @@ int scanMove;
 
 // ÇÔ¼ö
 
+void ChangeScene(int scene);
 void Move(int sel);
 void MoveFunc(MapNode* node);
 
@@ -60,4 +61,5 @@ void MoveFunc(MapNode* node)
 	curMapNode->isStay = 0;
 	curMapNode = node;
 	curMapNode->isStay = 1;
+	ChangeScene(curMapNode->info.type);
 }

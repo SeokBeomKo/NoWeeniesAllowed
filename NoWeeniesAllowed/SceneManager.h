@@ -1,20 +1,33 @@
 #pragma once
 #include "framework.h"
-#include "MainScene.h"
+#include "Scene.h"
 
-void NextScene();
+
+void ChangeScene(int scene);
+void EnterScene();
+void ExitScene();
 
 void SceneManagerInit()
 {
-	MainSceneRender();
 }
 
 void SceneManagerUpdate()
 {
+	SceneUpdate();
+}
+
+void ChangeScene(int scene)
+{
+	curScene = scene;
+}
+
+void EnterScene()
+{
 
 }
 
-void NextScene()
+void ExitScene()
 {
-
+	// 씬 전환 시 화면 정리
+	system("cls");
 }

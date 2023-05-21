@@ -13,10 +13,10 @@ typedef struct mapNode MapNode;
 typedef enum map_type MAP_TYPE;
 
 // 열거형
+
 enum map_type
 {
-	NORMALBATTLE,
-	ELITEBATTLE,
+	BATTLE,
 	REWARD,
 	TRAP
 };
@@ -31,8 +31,8 @@ struct mapInfo
 	소환될 적 개체수
 	보상 (골드)
 	*/
-	MAP_TYPE type;
 	Enemy enemy[3];
+	int type;
 	int enemyCount;
 	int rewards;
 };
@@ -40,6 +40,8 @@ struct mapNode
 {
 	int isFull;			// 맵이 비어있는지 확인
 	int isStay;			// 플레이어가 위치했는지 확인
+	int isClear;		// 클리어한 장소인지
+	int isColumn;		// 몇번째 열인지
 	/*
 	다음 맵 노드를 가지고 있음
 	*/
@@ -71,9 +73,11 @@ MapNode *curMapNode;
 
 // 함수
 
+void SetConsoleTextColor(int color_number);
+
 void MapDoubleCheck();
 void MapNodeAdd(int column, int row);
-void CurRender(MapNode node);
+void CurRender(MapNode node, int column);
 
 // 맵 생성 기능
 void MapIndexCreate()
@@ -118,9 +122,12 @@ void MapDoubleCheck()
 
 void MapListCreate()
 {
+	int type = 0;
+
 	// 시작 지점 설정
 	curMapNode = &enterMapNode;
 	curMapNode->isStay = 1;
+	curMapNode->isColumn = -1;
 
 	enterMapNode.leftNode = &mapList[0][0];
 	enterMapNode.straightNode = &mapList[0][1];
@@ -133,7 +140,30 @@ void MapListCreate()
 			if (mapIndex[column][row] == 1)
 			{
 				mapList[column][row].isFull = 1;
-				mapList[column][row].info.enemyCount = rand() % 3 + 1;
+				mapList[column][row].isClear = 0;
+				mapList[column][row].isColumn = column;
+
+				// 맵 타입 결정 0 : 전투, 1 : 보물, 2 : 함정
+				// 전투 60 보물 20 함정 20
+				type = rand() % 10;
+
+				// 전투 맵
+				if (type > 6)		
+				{
+					mapList[column][row].info.type = (int)BATTLE;
+					mapList[column][row].info.enemyCount = rand() % 3 + 1;
+				}
+				// 보물 맵
+				else if (type > 8)
+				{
+					mapList[column][row].info.type = (int)REWARD;
+				}
+				// 함정 맵
+				else if (type > 10)
+				{
+					mapList[column][row].info.type = (int)TRAP;
+				}
+				
 				// 맵에 생성될 적 개체 수
 				// printf("mapList[%d][%d] : %d\n", column, row, mapList[column][row].info.enemyCount);
 				MapNodeAdd(column, row);
@@ -168,7 +198,7 @@ void EnterRender()
 	{
 		printf("\t  ");
 	}
-	CurRender(enterMapNode);
+	CurRender(enterMapNode, -1);
 	for (row = 0; row < ROW - 2; row++)
 	{
 		printf("  \t");
@@ -208,7 +238,7 @@ void StageRender()
 			if (mapList[column][row].isFull == 1)
 			{
 				printf("  ");
-				CurRender(mapList[column][row]);
+				CurRender(mapList[column][row],column);
 				printf("\t");
 			}
 			else
@@ -276,8 +306,44 @@ void ExitRender()
 }
 
 // 현재 위치 그리기 기능
-void CurRender(MapNode node)
+void CurRender(MapNode node, int column)
 {
-	if (node.isStay == 0)	printf("□");
-	else					printf("■");
+	/*
+	01. 현재 있는 곳
+	02. 지나온 길
+	03. 돌아갈 수 없는 길
+	04. 가야할 길
+	*/
+	int clearcolumn = curMapNode->isColumn;
+
+	// 현재 있는 노드
+	if (node.isStay == 1)
+	{
+		SetConsoleTextColor(12);
+		printf("■");
+		SetConsoleTextColor(15);
+	}
+
+	// 지나온 노드
+	else if (node.isClear)
+	{
+		SetConsoleTextColor(4);
+		printf("■");
+		SetConsoleTextColor(15);
+	}
+
+	// 돌아갈 수 없는 노드
+	else if (node.isColumn < clearcolumn)
+	{
+		SetConsoleTextColor(8);
+		printf("□");
+		SetConsoleTextColor(15);
+	}
+
+	// 가야할 노드
+	else
+	{
+		printf("□");
+	}
+
 }

@@ -11,9 +11,5 @@ void MapManagerInit()
 
 void MapManagerUpdate()
 {
-	EnterRender();
-	StageRender();
-	ExitRender();
-
-	SelectMove();
+	
 }
