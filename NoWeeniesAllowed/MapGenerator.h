@@ -147,7 +147,7 @@ void MapListCreate()
 				mapList[column][row].isFull = 1;
 				mapList[column][row].isClear = 0;
 				mapList[column][row].isColumn = column;
-				// 맵 난이도 설정		0 0 0 1 1 1 2 2 2 3
+				// 맵노드 단계 설정		0 0 0 1 1 1 2 2 2 3
 				mapList[column][row].difficulty = column / 3;
 
 				// 맵 타입 결정 0 : 전투, 1 : 보물, 2 : 함정
@@ -163,7 +163,7 @@ void MapListCreate()
 					// TODO : 몬스터 정보 넣기, 함수화
 					for (int i = 0; i < mapList[column][row].info.enemyCount; i++)
 					{
-						CreateEnemy(&mapList[column][row].info.enemy[i], rand() % 3 + mapList[column][row].difficulty);
+						CreateEnemy(&mapList[column][row].info.enemy[i], difficulty, rand() % 3 + mapList[column][row].difficulty);
 					}
 				}
 				// 보물 맵

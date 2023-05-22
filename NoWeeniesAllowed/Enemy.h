@@ -3,7 +3,8 @@
 #include "framework.h"
 
 // 모든 몹 종류
-#define Count 20
+#define Count 12
+#define Diffi 3
 
 typedef enum patterntype
 {
@@ -44,58 +45,60 @@ typedef struct enemy
 	int difficulty;
 }Enemy;
 
-Enemy enemy[Count];
+Enemy enemy[Diffi][Count];
 Enemy* enemyPtr[Count];
 
 
 // 함수 선언
-void EnemyElement(int code, string _name, string _info, int _hp, int _att, int _attcount, int _def, int _difficulty);
-void EnemyPatternElemeny(int _code, int _count, string _name, int _type);
+void EnemyElement(int _difficult, int _code, string _name, string _info, int _hp, int _att, int _attcount, int _def, int _difficulty);
+void EnemyPatternElemeny(int _difficult, int _code, int _count, string _name, int _type);
+void CreateEnemy(Enemy* _enemy, int _difficult, int _copycode);
 
 void EnemyInit()
 {
-	enemyPtr[0] = &enemy[0];
 	// 모든 적 생성
 
-	// 코드, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 난이도 (0 ~ 5) 012 123 234
-	EnemyElement(0, "Tom", "일반 몬스터", 10, 1, 1, 0, 0);
-	// 코드, 행동패턴 번호, 이름, 타입
-	EnemyPatternElemeny(0, 0, "멍 때리기", EIDLE);
-	EnemyPatternElemeny(0, 1, "때리기", EATTACK);
-	EnemyPatternElemeny(0, 2, "막기", EDEFFENSE);
+	// 등장 난이도 (0 ~ 2), 배열, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 스테이지 (0 ~ 2)
+	EnemyElement(0, 0, "0Tom", "일반 몬스터", 10, 1, 1, 0, 0);
+	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
+	EnemyPatternElemeny(0 ,0, 0, "멍 때리기", EIDLE);
+	EnemyPatternElemeny(0 ,0, 1, "때리기", EATTACK);
+	EnemyPatternElemeny(0 ,0, 2, "막기", EDEFFENSE);
 
-	// 코드, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 난이도 (0 ~ 5) 012 123 234
-	EnemyElement(1, "Scooter", "일반 몬스터", 10, 1, 1, 0, 0);
-	// 코드, 행동패턴 번호, 이름, 타입
-	EnemyPatternElemeny(1, 0, "멍 때리기", EIDLE);
-	EnemyPatternElemeny(1, 1, "때리기", EATTACK);
-	EnemyPatternElemeny(1, 2, "막기", EDEFFENSE);
+	// 등장 난이도 (0 ~ 2), 코드, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 난이도 (0 ~ 5) 012 123 234
+	EnemyElement(0, 1, "0Scooter", "일반 몬스터", 10, 1, 1, 0, 0);
+	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
+	EnemyPatternElemeny(0, 0, 0, "멍 때리기", EIDLE);
+	EnemyPatternElemeny(0, 0, 1, "때리기", EATTACK);
+	EnemyPatternElemeny(0, 0, 2, "막기", EDEFFENSE);
 
-	// 코드, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 난이도 (0 ~ 5) 012 123 234
-	EnemyElement(2, "Nat", "일반 몬스터", 10, 1, 1, 0, 0);
-	// 코드, 행동패턴 번호, 이름, 타입
-	EnemyPatternElemeny(2, 0, "멍 때리기", EIDLE);
-	EnemyPatternElemeny(2, 1, "때리기", EATTACK);
-	EnemyPatternElemeny(2, 2, "막기", EDEFFENSE);
+	// 등장 난이도 (0 ~ 2), 코드, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 난이도 (0 ~ 5) 012 123 234
+	EnemyElement(0, 2, "0Nat", "일반 몬스터", 10, 1, 1, 0, 0);
+	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
+	EnemyPatternElemeny(0, 0, 0, "멍 때리기", EIDLE);
+	EnemyPatternElemeny(0, 0, 1, "때리기", EATTACK);
+	EnemyPatternElemeny(0, 0, 2, "막기", EDEFFENSE);
+
+
 }
 
-void EnemyElement(int code, string _name, string _info, int _hp, int _att, int _attcount, int _def, int _difficulty)
+void EnemyElement(int _difficult, int _code, string _name, string _info, int _hp, int _att, int _attcount, int _def, int _difficulty)
 {
-	enemy[code].name = _name;
-	enemy[code].info = _info;
-	enemy[code].hp = _hp;
-	enemy[code].att = _att;
-	enemy[code].attcount = _attcount;
-	enemy[code].def = _def;
+	enemy[_difficult][_code].name = _name;
+	enemy[_difficult][_code].info = _info;
+	enemy[_difficult][_code].hp = _hp;
+	enemy[_difficult][_code].att = _att;
+	enemy[_difficult][_code].attcount = _attcount;
+	enemy[_difficult][_code].def = _def;
 }
-void EnemyPatternElemeny(int _code, int _count, string _name, int _type)
+void EnemyPatternElemeny(int _difficult, int _code, int _count, string _name, int _type)
 {
-	enemy[_code].pattern[_count].name = _name;
-	enemy[_code].pattern[_count].pattern = _type;
+	enemy[_difficult][_code].pattern[_count].name = _name;
+	enemy[_difficult][_code].pattern[_count].pattern = _type;
 }
 
-void CreateEnemy(Enemy *_enemy, int copycode)
+void CreateEnemy(Enemy *_enemy, int _difficult, int _copycode)
 {
-	*_enemy = enemy[copycode];
+	*_enemy = enemy[_difficult][_copycode];
 }
 
