@@ -10,6 +10,6 @@ void RewardSceneUpdate()
 		Reward();
 	}
 	
-
+	isRewardSel = 0;
 	ChangeScene(MAP);
 }

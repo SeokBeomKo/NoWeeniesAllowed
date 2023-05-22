@@ -61,6 +61,9 @@
     <Filter Include="01. Object\Map\Battle">
       <UniqueIdentifier>{ebfab17a-edfd-4001-8da6-fe6451b81b6f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Object\Map\Trap">
+      <UniqueIdentifier>{d2ad9c8c-90ba-4e3e-bd47-7d1ed9af75af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoWeeniesAllowed.c">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="Reward.h">
       <Filter>01. Object\Map\Reward</Filter>
+    </ClInclude>
+    <ClInclude Include="Trap.h">
+      <Filter>01. Object\Map\Trap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -152,6 +152,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="struct.h" />
+    <ClInclude Include="Trap.h" />
     <ClInclude Include="TrapScene.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UIManager.h" />

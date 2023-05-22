@@ -28,6 +28,7 @@ struct passiveskill
 
 struct activeskill
 {
+	string grade;			// 등급
 	string name;			// 이름
 	string info;			// 설명
 	int attcount;			// 공격 횟수
@@ -64,6 +65,20 @@ void SkillInit()
 
 void SkillElement(int _code, int _grade, string _name, string _info, int _attcount, int _coefficient, AttackType _type, int _cost)
 {
+	switch (_grade)
+	{
+	case 0:
+		activeSkill[_grade][_code].grade = "일반";
+		break;
+	case 1:
+		activeSkill[_grade][_code].grade = "희귀";
+		break;
+	case 2:
+		activeSkill[_grade][_code].grade = "전설";
+		break;
+	default:
+		break;
+	}
 	activeSkill[_grade][_code].name = _name;
 	activeSkill[_grade][_code].info = _info;
 	activeSkill[_grade][_code].attcount = _attcount;

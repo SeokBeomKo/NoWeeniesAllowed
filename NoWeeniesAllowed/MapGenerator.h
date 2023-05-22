@@ -159,7 +159,6 @@ void MapListCreate()
 					mapList[column][row].info.type = (int)BATTLE;
 					// 맵에 생성될 적 개체 수
 					mapList[column][row].info.enemyCount = rand() % 3 + 1;
-					// TODO : 몬스터 정보 넣기, 함수화
 					for (int i = 0; i < mapList[column][row].info.enemyCount; i++)
 					{
 						AddEnemy(&mapList[column][row].info.enemy[i], difficulty, rand() % 3 + mapList[column][row].step);
