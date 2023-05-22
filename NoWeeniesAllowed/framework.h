@@ -10,6 +10,7 @@
 typedef struct player Player;
 
 typedef enum move_type MOVE_TYPE;
+typedef enum scene_type SCENE_TYPE;
 
 // ¿­°ÅÇü
 enum move_type
@@ -19,14 +20,16 @@ enum move_type
 	RIGHT
 };
 
-enum SCENE_TYPE
+enum scene_type
 {
 	MAIN,
 	MAP,
 	BATTLE,
 	REWARD,
 	TRAP,
-	BOSS
+	BOSS,
+	
+	OPTION
 };
 
 

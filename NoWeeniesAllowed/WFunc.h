@@ -22,3 +22,21 @@ void GotoXY(int x, int y)
     Pos.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Pos);
 }
+
+void FilePrint(char * input_str, int x, int y)
+{
+    char str[100];
+    FILE* fp = NULL;
+        fopen_s(&fp, input_str, "rt");
+    if (fp == NULL) return;
+    int i = 0;
+    while (1)
+    {
+        char* pstr = fgets(str, 100, fp);
+        if (pstr == NULL) break;
+        GotoXY(x, y + i);
+        printf("%s",str);
+        i++;
+    }
+    fclose(fp);
+}

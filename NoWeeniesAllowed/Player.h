@@ -9,6 +9,7 @@ typedef struct player Player;
 
 struct player
 {
+	string nick;
 	string name;
 	PassiveSkill pskill[4];
 	ActiveSkill askill[ACTIVESKILL];
@@ -35,7 +36,7 @@ void PlayerInit()
 
 	playerdata.cost = COST;
 
-	playerdata.att = 10;
+	playerdata.att = 100;
 	playerdata.def = 1;
 	playerdata.hp = 10;
 
@@ -44,5 +45,4 @@ void PlayerInit()
 	playerdata.gold = 0;
 
 	AddSkill(&playerdata.askill[0], 0, 0);
-	AddSkill(&playerdata.askill[1], 1, 0);
 }

@@ -37,9 +37,6 @@
     <Filter Include="03. Scene">
       <UniqueIdentifier>{444b87cf-0b7f-445c-9110-08aa6c56e3bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Scene\Map">
-      <UniqueIdentifier>{b23ae4de-724f-4f8a-8b08-1ab1973a1df5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Scene\00. Main">
       <UniqueIdentifier>{a01e4b03-c513-43ea-82d1-9da4e0068a9f}</UniqueIdentifier>
     </Filter>
@@ -49,14 +46,23 @@
     <Filter Include="01. Object\Skill">
       <UniqueIdentifier>{55b1dee7-9e76-4430-80b2-5fe8c07b9a30}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Object\Battle">
-      <UniqueIdentifier>{ebfab17a-edfd-4001-8da6-fe6451b81b6f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. UI">
       <UniqueIdentifier>{94d3aae4-1a6e-45b4-9183-3e87582251a6}</UniqueIdentifier>
     </Filter>
     <Filter Include="04. UI\BattleUI">
       <UniqueIdentifier>{b5206aae-9878-4b9f-9b5a-f491eb157e09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\02. Option">
+      <UniqueIdentifier>{ab7857a4-032d-47d3-ada3-17da02c2c4f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Object\Map\Reward">
+      <UniqueIdentifier>{666f1ccd-ed13-4cc1-bd3f-1e4f7a966130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Object\Map\Battle">
+      <UniqueIdentifier>{ebfab17a-edfd-4001-8da6-fe6451b81b6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Object\Map\Trap">
+      <UniqueIdentifier>{d2ad9c8c-90ba-4e3e-bd47-7d1ed9af75af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -92,9 +98,6 @@
     <ClInclude Include="MainScene.h">
       <Filter>03. Scene\00. Main</Filter>
     </ClInclude>
-    <ClInclude Include="MapScene.h">
-      <Filter>03. Scene\Map</Filter>
-    </ClInclude>
     <ClInclude Include="BattleScene.h">
       <Filter>03. Scene\01. MapNode</Filter>
     </ClInclude>
@@ -123,7 +126,7 @@
       <Filter>01. Object\Skill</Filter>
     </ClInclude>
     <ClInclude Include="Battle.h">
-      <Filter>01. Object\Battle</Filter>
+      <Filter>01. Object\Map\Battle</Filter>
     </ClInclude>
     <ClInclude Include="BattleUI.h">
       <Filter>04. UI\BattleUI</Filter>
@@ -136,6 +139,18 @@
     </ClInclude>
     <ClInclude Include="BattleManager.h">
       <Filter>00. Engine\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MapScene.h">
+      <Filter>03. Scene\01. MapNode</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionScene.h">
+      <Filter>03. Scene\02. Option</Filter>
+    </ClInclude>
+    <ClInclude Include="Reward.h">
+      <Filter>01. Object\Map\Reward</Filter>
+    </ClInclude>
+    <ClInclude Include="Trap.h">
+      <Filter>01. Object\Map\Trap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

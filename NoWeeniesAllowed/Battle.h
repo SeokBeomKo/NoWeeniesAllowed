@@ -3,7 +3,7 @@
 
 int sel = 0;
 int target = 0;
-int isClear = 0;
+int isClearBattle = 0;
 
 #define ENEMYCOUNT 3
 
@@ -37,7 +37,7 @@ void PlayerTurn(Player *player)
 		PlayerActionSel();
 
 		if (player->cost == 0) break;
-		// 추후 보상 맵으로
+
 		ClearCheck();
 
 		system("cls");
@@ -46,15 +46,15 @@ void PlayerTurn(Player *player)
 
 void ClearCheck()
 {
-	isClear = 0;
+	isClearBattle = 0;
 	for (int i = 0; i < ENEMYCOUNT;i++)
 	{
 		if (battleEnemy[i].curhp <= 0)
 		{
-			isClear++;
+			isClearBattle++;
 		}
 	}
-	if (isClear == ENEMYCOUNT)
+	if (isClearBattle == ENEMYCOUNT)
 	{
 		curMapNode->isClear = 1;
 	}
@@ -72,21 +72,21 @@ void PlayerActionSel()
 	target = 0;
 	for (int i = 0; i < ACTIVESKILL; i++)
 	{
-		if (player->askill[i].name != NULL) printf("[%d번] [%s]\t", i,player->askill[i].name);
+		if (player->askill[i].name != NULL) printf("[%d번 스킬] [%s]\t", i + 1,player->askill[i].name);
 	}
 
 	printf("남은 에너지 :  %d\n", player->cost);
 	
 	while (TRUE)
 	{
-		printf("\n행동 선택 : ");
+		printf("\n스킬 선택 : ");
 		scanf_s("%d", &sel);
 
 		// 해당 행동이 있는지
-		if (player->askill[sel].name != NULL)
+		if (player->askill[sel - 1].name != NULL)
 		{
 			// 에너지가 충분한지
-			if (player->cost < player->askill[sel].cost)
+			if (player->cost < player->askill[sel - 1].cost)
 			{
 				printf("\n에너지 부족 ㅠㅠ");
 			}
@@ -96,7 +96,7 @@ void PlayerActionSel()
 		else printf("\n그런 행동 없음");
 	}
 
-	PlayerAction(sel);
+	PlayerAction(sel - 1);
 }
 
 void PlayerAction(int selAction)
@@ -108,9 +108,9 @@ void PlayerAction(int selAction)
 		{
 			printf("타겟을 지정하세요 :");
 			scanf_s("%d", &target);
-			if (battleEnemy[target].curhp != 0)
+			if (battleEnemy[target - 1].curhp != 0)
 			{
-				battleEnemy[target].curhp = battleEnemy[target].curhp - (player->askill[selAction].coefficient * player->att) / 100;
+				battleEnemy[target - 1].curhp = battleEnemy[target - 1].curhp - (player->askill[selAction].coefficient * player->att) / 100;
 				player->cost = player->cost - player->askill[selAction].cost;
 				break;
 			}

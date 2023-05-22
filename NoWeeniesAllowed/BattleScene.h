@@ -19,6 +19,6 @@ void BattleSceneUpdate()
 	ExitBattle();
 
 	// TODO : 클리어 시 보상씬, 실패 시 메인 씬
-	ChangeScene(MAP);
+	ChangeScene(REWARD);
 }
 

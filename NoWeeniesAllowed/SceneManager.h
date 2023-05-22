@@ -3,7 +3,7 @@
 #include "Scene.h"
 
 
-void ChangeScene(int scene);
+void ChangeScene(SCENE_TYPE scene);
 void EnterScene();
 void ExitScene();
 
@@ -16,7 +16,7 @@ void SceneManagerUpdate()
 	SceneUpdate();
 }
 
-void ChangeScene(int scene)
+void ChangeScene(SCENE_TYPE scene)
 {
 	curScene = scene;
 }

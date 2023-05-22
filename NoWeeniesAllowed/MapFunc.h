@@ -1,7 +1,6 @@
 #pragma once
 #include "framework.h"
 
-
 // 변수
 
 int scanMove;
@@ -9,9 +8,10 @@ int scanMove;
 
 // 함수
 
-void ChangeScene(int scene);
+void ChangeScene(SCENE_TYPE scene);
 void Move(int sel);
 void MoveFunc(MapNode* node);
+void SelectMove();
 
 void SelectMove()
 {
@@ -52,5 +52,5 @@ void MoveFunc(MapNode* node)
 	curMapNode->isStay = 0;
 	curMapNode = node;
 	curMapNode->isStay = 1;
-	ChangeScene(curMapNode->info.type);
+	ChangeScene((SCENE_TYPE)curMapNode->info.type);
 }
