@@ -146,6 +146,7 @@
     <ClInclude Include="MapScene.h" />
     <ClInclude Include="OptionScene.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Reward.h" />
     <ClInclude Include="RewardScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />

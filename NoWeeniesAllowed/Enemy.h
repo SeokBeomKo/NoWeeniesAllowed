@@ -139,5 +139,24 @@ void NormalInit()
 
 void HardInit()
 {
+	// 등장 난이도 (0 ~ 2), 배열, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 스테이지 (0 ~ 2)
+	EnemyElement(2, 0, "2Tom", "일반 몬스터", 10, 1, 1, 0, 0);
+	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
+	EnemyPatternElemeny(2, 0, 0, "멍 때리기", EIDLE);
+	EnemyPatternElemeny(2, 0, 1, "때리기", EATTACK);
+	EnemyPatternElemeny(2, 0, 2, "막기", EDEFFENSE);
 
+	// 등장 난이도 (0 ~ 2), 코드, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 난이도 (0 ~ 5) 012 123 234
+	EnemyElement(2, 1, "2Scooter", "일반 몬스터", 10, 1, 1, 0, 0);
+	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
+	EnemyPatternElemeny(2, 1, 0, "멍 때리기", EIDLE);
+	EnemyPatternElemeny(2, 1, 1, "때리기", EATTACK);
+	EnemyPatternElemeny(2, 1, 2, "막기", EDEFFENSE);
+
+	// 등장 난이도 (0 ~ 2), 코드, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 난이도 (0 ~ 5) 012 123 234
+	EnemyElement(2, 2, "2Nat", "일반 몬스터", 10, 1, 1, 0, 0);
+	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
+	EnemyPatternElemeny(2, 2, 0, "멍 때리기", EIDLE);
+	EnemyPatternElemeny(2, 2, 1, "때리기", EATTACK);
+	EnemyPatternElemeny(2, 2, 2, "막기", EDEFFENSE);
 }

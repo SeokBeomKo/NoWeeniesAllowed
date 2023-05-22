@@ -46,9 +46,6 @@
     <Filter Include="01. Object\Skill">
       <UniqueIdentifier>{55b1dee7-9e76-4430-80b2-5fe8c07b9a30}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Object\Battle">
-      <UniqueIdentifier>{ebfab17a-edfd-4001-8da6-fe6451b81b6f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. UI">
       <UniqueIdentifier>{94d3aae4-1a6e-45b4-9183-3e87582251a6}</UniqueIdentifier>
     </Filter>
@@ -57,6 +54,12 @@
     </Filter>
     <Filter Include="03. Scene\02. Option">
       <UniqueIdentifier>{ab7857a4-032d-47d3-ada3-17da02c2c4f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Object\Map\Reward">
+      <UniqueIdentifier>{666f1ccd-ed13-4cc1-bd3f-1e4f7a966130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Object\Map\Battle">
+      <UniqueIdentifier>{ebfab17a-edfd-4001-8da6-fe6451b81b6f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -120,7 +123,7 @@
       <Filter>01. Object\Skill</Filter>
     </ClInclude>
     <ClInclude Include="Battle.h">
-      <Filter>01. Object\Battle</Filter>
+      <Filter>01. Object\Map\Battle</Filter>
     </ClInclude>
     <ClInclude Include="BattleUI.h">
       <Filter>04. UI\BattleUI</Filter>
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="OptionScene.h">
       <Filter>03. Scene\02. Option</Filter>
+    </ClInclude>
+    <ClInclude Include="Reward.h">
+      <Filter>01. Object\Map\Reward</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
