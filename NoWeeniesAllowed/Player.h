@@ -37,7 +37,7 @@ void PlayerInit()
 	playerdata.cost = COST;
 
 	playerdata.att = 100;
-	playerdata.def = 1;
+	playerdata.def = 0;
 	playerdata.hp = 10;
 
 	playerdata.curhp = playerdata.hp;

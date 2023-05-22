@@ -14,6 +14,7 @@ void TempBattleUI();
 void PlayerActionSel();
 void PlayerAction(int selAction);
 void ClearCheck();
+void EnemyAction(Enemy enemy);
 
 void EnterBattle()
 {
@@ -28,7 +29,8 @@ void EnterBattle()
 
 void PlayerTurn(Player *player)
 {
-	player->cost = COST;
+	// TODO : 끝나고 1을 COST 로 변경
+	player->cost = 1;
 
 	while (!curMapNode->isClear)
 	{
@@ -36,11 +38,10 @@ void PlayerTurn(Player *player)
 		TempBattleUI();
 		PlayerActionSel();
 
-		if (player->cost == 0) break;
-
 		ClearCheck();
 
 		system("cls");
+		if (player->cost == 0) break;
 	}
 }
 
@@ -64,7 +65,42 @@ void EnemyTurn()
 {
 	TempBattleUI();
 
-	// TODO : 맵 노드에 존재하는 모든 적 개체가 공격
+	for(int i = 0; i < ENEMYCOUNT; i ++)
+	{
+		// 현재 차례의 몹이 살아있다면
+		if (battleEnemy[i].curhp != 0)
+		{
+			printf("%s 의 행동\n", battleEnemy[i].name);
+			EnemyAction(battleEnemy[i]);
+		}
+	}
+}
+
+void EnemyAction(Enemy enemy)
+{
+	// TODO : 몬스터의 다양한 패턴 구현
+	int pattern = rand() % 2;
+	int dmg;
+
+	switch (pattern)
+	{
+	case 0:
+		if (enemy.att - player->def < 0) dmg = 0;
+		dmg = enemy.att - player->def;
+		player->curhp = player->curhp - dmg;
+		printf("적이 때려서 %d 만큼 피 닳았음\n", dmg);
+		break;
+	case 1:
+		printf("적 가만히 있기\n");
+		break;
+	/*case 2:
+		enemy.def++;
+		printf("적 방어\n");
+	case 3:
+		break;*/
+	default:
+		break;
+	}
 }
 
 void PlayerActionSel()
@@ -95,7 +131,7 @@ void PlayerActionSel()
 		}
 		else printf("\n그런 행동 없음");
 	}
-
+	
 	PlayerAction(sel - 1);
 }
 
@@ -112,12 +148,14 @@ void PlayerAction(int selAction)
 			{
 				battleEnemy[target - 1].curhp = battleEnemy[target - 1].curhp - (player->askill[selAction].coefficient * player->att) / 100;
 				player->cost = player->cost - player->askill[selAction].cost;
+				ClearCheck();
 				break;
 			}
 			else
 			{
 				printf("아무것도 없습니다.");
 			}
+			
 		}
 	}
 	// 범위 공격이라면 모두 공격
@@ -141,6 +179,7 @@ void ExitBattle()
 
 void TempBattleUI()
 {
+	FilePrint("BattleUI.txt", 0, 0);
 	for (int i = 0; i < curEnemyCount; i++)
 	{
 		if (battleEnemy[i].curhp < 0)
@@ -148,10 +187,14 @@ void TempBattleUI()
 			battleEnemy[i].curhp = 0;
 		}
 	}
+
 	for (int i = 0; i < curEnemyCount; i++)
 	{
 		printf("[%d] [%s] 의 체력 : %d\t\t",i + 1, battleEnemy[i].name, battleEnemy[i].curhp);
 	}
 	printf("\n\n");
 	printf("[%s] 의 체력 : %d\n\n", player->name, player->curhp);
+
+	// TODO : 몬스터 차례 끝나면 띄워주고 지우기
+	// system("cls");
 }

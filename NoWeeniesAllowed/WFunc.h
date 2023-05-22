@@ -23,6 +23,12 @@ void GotoXY(int x, int y)
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Pos);
 }
 
+void PrintXY(string print,int x, int y)
+{
+    GotoXY(x, y);
+    printf("%s", print);
+}
+
 void FilePrint(char * input_str, int x, int y)
 {
     char str[100];

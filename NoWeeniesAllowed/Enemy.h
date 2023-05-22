@@ -14,6 +14,7 @@ typedef enum patterntype
 	EDEBUFF,
 	EBUFF,
 	EIDLE
+
 }PatternType;
 
 typedef struct enemypattern
