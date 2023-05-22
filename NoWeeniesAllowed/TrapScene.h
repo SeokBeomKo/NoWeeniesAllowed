@@ -5,5 +5,7 @@
 void TrapSceneUpdate()
 {
 
+	Trap();
+
 	ChangeScene(MAP);
 }
