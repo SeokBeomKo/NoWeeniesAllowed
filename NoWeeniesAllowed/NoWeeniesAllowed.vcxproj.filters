@@ -134,5 +134,8 @@
     <ClInclude Include="UI.h">
       <Filter>04. UI</Filter>
     </ClInclude>
+    <ClInclude Include="BattleManager.h">
+      <Filter>00. Engine\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

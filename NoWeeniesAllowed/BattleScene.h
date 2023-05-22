@@ -9,6 +9,7 @@ void BattleSceneUpdate()
 
 	while (TRUE)
 	{
+		printf("%s\n",curMapNode->info.enemy[0].name);
 		// 플레이어 선 공격
 		PlayerTurn(player);
 

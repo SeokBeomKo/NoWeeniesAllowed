@@ -10,15 +10,6 @@
 
 typedef struct mapInfo MapInfo;
 typedef struct mapNode MapNode;
-//typedef enum map_type MAP_TYPE;
-//
-//// 열거형
-//
-//enum map_type
-//{
-//	BATTLE = 2,
-//	REWARD,
-//	TRAP
 //};
 
 // 구조체
@@ -169,6 +160,11 @@ void MapListCreate()
 					mapList[column][row].info.type = (int)BATTLE;
 					// 맵에 생성될 적 개체 수
 					mapList[column][row].info.enemyCount = rand() % 3 + 1;
+					// TODO : 몬스터 정보 넣기, 함수화
+					for (int i = 0; i < mapList[column][row].info.enemyCount; i++)
+					{
+						CreateEnemy(&mapList[column][row].info.enemy[i], rand() % 3 + mapList[column][row].difficulty);
+					}
 				}
 				// 보물 맵
 				else if (type < 9)

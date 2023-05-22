@@ -45,14 +45,16 @@ typedef struct enemy
 }Enemy;
 
 Enemy enemy[Count];
+Enemy* enemyPtr[Count];
 
 
 // 함수 선언
 void EnemyElement(int code, string _name, string _info, int _hp, int _att, int _attcount, int _def, int _difficulty);
 void EnemyPatternElemeny(int _code, int _count, string _name, int _type);
 
-void Init()
+void EnemyInit()
 {
+	enemyPtr[0] = &enemy[0];
 	// 모든 적 생성
 
 	// 코드, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 난이도 (0 ~ 5) 012 123 234
@@ -92,8 +94,8 @@ void EnemyPatternElemeny(int _code, int _count, string _name, int _type)
 	enemy[_code].pattern[_count].pattern = _type;
 }
 
-void CreateEnemy(Enemy _enemy, int copycode)
+void CreateEnemy(Enemy *_enemy, int copycode)
 {
-	_enemy = enemy[copycode];
+	*_enemy = enemy[copycode];
 }
 
