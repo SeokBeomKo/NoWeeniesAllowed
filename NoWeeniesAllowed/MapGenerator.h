@@ -10,15 +10,6 @@
 
 typedef struct mapInfo MapInfo;
 typedef struct mapNode MapNode;
-//typedef enum map_type MAP_TYPE;
-//
-//// 열거형
-//
-//enum map_type
-//{
-//	BATTLE = 2,
-//	REWARD,
-//	TRAP
 //};
 
 // 구조체
@@ -31,8 +22,8 @@ struct mapInfo
 	소환될 적 개체수
 	보상 (골드)
 	*/
-	Enemy enemy[3];
 	int type;
+	Enemy enemy[3];
 	int enemyCount;
 	int rewards;
 };
@@ -42,6 +33,8 @@ struct mapNode
 	int isStay;			// 플레이어가 위치했는지 확인
 	int isClear;		// 클리어한 장소인지
 	int isColumn;		// 몇번째 열인지
+
+	int difficulty;		// 현재 맵의 난이도 (난이도에 따라 소환되는 몬스터 종류가 다름)
 	/*
 	다음 맵 노드를 가지고 있음
 	*/
@@ -110,6 +103,7 @@ void MapDoubleCheck()
 {
 	for (column = 0; column < COLUMN - 1; column++)
 	{
+		// 다음 노드가 없을 경우 없애기
 		if (mapIndex[column][0] == 1 && mapIndex[column + 1][0] == 0 && mapIndex[column + 1][1] == 0)
 		{
 			mapIndex[column + 1][rand() % 2] = 1;
@@ -117,6 +111,16 @@ void MapDoubleCheck()
 		if (mapIndex[column][2] == 1 && mapIndex[column + 1][1] == 0 && mapIndex[column + 1][2] == 0)
 		{
 			mapIndex[column + 1][rand() % 2 + 1] = 1;
+		}
+
+		// 이전 노드가 없을 경우 없애기
+		if (mapIndex[column + 1][0] == 1 && mapIndex[column][0] == 0 && mapIndex[column][1] == 0)
+		{
+			mapIndex[column][1] = 1;
+		}
+		if (mapIndex[column + 1][2] == 1 && mapIndex[column][1] == 0 && mapIndex[column][2] == 0)
+		{
+			mapIndex[column][1] = 1;
 		}
 	}
 }
@@ -143,20 +147,27 @@ void MapListCreate()
 				mapList[column][row].isFull = 1;
 				mapList[column][row].isClear = 0;
 				mapList[column][row].isColumn = column;
+				// 맵노드 단계 설정		0 0 0 1 1 1 2 2 2 3
+				mapList[column][row].difficulty = column / 3;
 
 				// 맵 타입 결정 0 : 전투, 1 : 보물, 2 : 함정
-				// 전투 60 보물 20 함정 20
+				// 전투 80 보물 10 함정 10
 				type = rand() % 10;
 
 				// 전투 맵
-				if (type < 6)		
+				if (type < 8)		
 				{
 					mapList[column][row].info.type = (int)BATTLE;
 					// 맵에 생성될 적 개체 수
 					mapList[column][row].info.enemyCount = rand() % 3 + 1;
+					// TODO : 몬스터 정보 넣기, 함수화
+					for (int i = 0; i < mapList[column][row].info.enemyCount; i++)
+					{
+						AddEnemy(&mapList[column][row].info.enemy[i], difficulty, rand() % 3 + mapList[column][row].difficulty);
+					}
 				}
 				// 보물 맵
-				else if (type < 8)
+				else if (type < 9)
 				{
 					mapList[column][row].info.type = (int)REWARD;
 				}
@@ -192,6 +203,7 @@ void MapNodeAdd(int column, int row)
 // 맵 그리기 기능
 void EnterRender()
 {
+	GotoXY(45,1);
 	// 시작 지점 렌더
 	for (row = 0; row < ROW - 2; row++)
 	{
@@ -203,6 +215,7 @@ void EnterRender()
 		printf("  \t");
 	}
 	printf("\n");
+	GotoXY(45, 3);
 	printf("\t");
 	for (row = 0; row < ROW; row++)
 	{
@@ -228,10 +241,12 @@ void EnterRender()
 }
 void StageRender()
 {
+	int i = 5;
 	// 맵 인덱스 생성 확인
 	for (column = 0; column < COLUMN; column++)
 	{
 		// 맵 정보 나타낼 때
+		GotoXY(45, i + (column * 4));
 		for (row = 0; row < ROW; row++)
 		{
 			if (mapList[column][row].isFull)
@@ -245,9 +260,9 @@ void StageRender()
 				printf("  \t");
 			}
 		}
-		printf("\n\n");
 		// 맵의 다음 선택지 나타낼 때
 		// TODO : 첫 시작과 마지막 예외처리
+		GotoXY(45, i + (column * 4) + 2);
 		for (row = 0; row < ROW; row++)
 		{
 			if (column == COLUMN - 1)
@@ -255,11 +270,11 @@ void StageRender()
 			if (mapList[column][row].isFull)		// 노드가 있다면
 			{
 				if (mapList[column][row].leftNode != NULL)	CurDirRender(LEFT, column);
-				else printf("  ");
+				else printf(" ");
 				if (mapList[column][row].straightNode != NULL)	CurDirRender(STRAIGHT, column);
 				else printf("  ");
 				if (mapList[column][row].rightNode != NULL)	CurDirRender(RIGHT, column);
-				else printf("  ");
+				else printf(" ");
 			}
 			printf("\t");
 		}
@@ -269,6 +284,7 @@ void StageRender()
 }
 void ExitRender()
 {
+	GotoXY(45, 43);
 	printf("\t");
 	for (row = 0; row < ROW; row++)
 	{
@@ -290,7 +306,7 @@ void ExitRender()
 			break;
 		}
 	}
-	printf("\n");
+	GotoXY(45, 45);
 	// 보스 진입 렌더
 	for (row = 0; row < ROW - 2; row++)
 	{
@@ -308,12 +324,6 @@ void ExitRender()
 // 현재 위치 그리기 기능
 void CurRender(MapNode node, int column)
 {
-	/*
-	01. 현재 있는 곳
-	02. 지나온 길
-	03. 돌아갈 수 없는 길
-	04. 가야할 길
-	*/
 	int clearcolumn = curMapNode->isColumn;
 
 	// 현재 있는 노드

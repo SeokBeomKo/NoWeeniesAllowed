@@ -4,7 +4,7 @@
 
 int main()
 {
-	system("mode con:lines=50 cols=200");		// 콘솔창 크기
+	system("mode con:lines=55 cols=200");		// 콘솔창 크기
 
 	Core_Init();
 	Core_Update();

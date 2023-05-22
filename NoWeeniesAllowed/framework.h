@@ -7,6 +7,8 @@
 //## 게임 그룹							##
 //========================================
 
+typedef struct player Player;
+
 typedef enum move_type MOVE_TYPE;
 
 // 열거형
@@ -32,17 +34,22 @@ enum SCENE_TYPE
 #include <windows.h>
 
 // C 런타임 헤더 파일
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
 
-// Core & Manager
-#include "MapManager.h"
-#include "SceneManager.h"
-
 // Util
 #include "struct.h"
 #include "WFunc.h"
+
+// Core & Manager
+#include "GameManager.h"
+#include "MapManager.h"
+#include "SceneManager.h"
+#include "UIManager.h"
+
+
 
 
 
