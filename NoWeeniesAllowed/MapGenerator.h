@@ -163,7 +163,7 @@ void MapListCreate()
 					// TODO : 몬스터 정보 넣기, 함수화
 					for (int i = 0; i < mapList[column][row].info.enemyCount; i++)
 					{
-						CreateEnemy(&mapList[column][row].info.enemy[i], difficulty, rand() % 3 + mapList[column][row].difficulty);
+						AddEnemy(&mapList[column][row].info.enemy[i], difficulty, rand() % 3 + mapList[column][row].difficulty);
 					}
 				}
 				// 보물 맵

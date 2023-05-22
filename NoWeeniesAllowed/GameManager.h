@@ -10,6 +10,7 @@ int difficulty = 0;
 
 void GameManagerInit()
 {
+	SkillInit();
 	PlayerInit();
 	EnemyInit();
 }

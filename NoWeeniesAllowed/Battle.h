@@ -3,6 +3,7 @@
 
 int sel = 0;
 int target = 0;
+int isClear = 0;
 
 #define ENEMYCOUNT 3
 
@@ -11,7 +12,8 @@ int curEnemyCount;
 
 void TempBattleUI();
 void PlayerActionSel();
-void PlayerAction();
+void PlayerAction(int selAction);
+void ClearCheck();
 
 void EnterBattle()
 {
@@ -26,10 +28,37 @@ void EnterBattle()
 
 void PlayerTurn(Player *player)
 {
-	// TODO : 배틀 UI 띄우기
-	TempBattleUI();
-	// TODO : 행동 선택지
-	PlayerActionSel();
+	player->cost = COST;
+
+	while (!curMapNode->isClear)
+	{
+		// TODO : 배틀 UI 수정
+		TempBattleUI();
+		PlayerActionSel();
+
+		if (player->cost == 0) break;
+		// 추후 보상 맵으로
+		ClearCheck();
+
+		system("cls");
+	}
+}
+
+void ClearCheck()
+{
+	isClear = 0;
+	for (int i = 0; i < ENEMYCOUNT;i++)
+	{
+		if (battleEnemy[i].curhp == 0)
+		{
+			isClear++;
+		}
+	}
+	if (isClear == ENEMYCOUNT)
+	{
+		curMapNode->isClear = 1;
+		ChangeScene(MAP);
+	}
 }
 
 void EnemyTurn()
@@ -41,30 +70,68 @@ void EnemyTurn()
 
 void PlayerActionSel()
 {
-	// TODO : 타겟 지정 나중으로 why 공격에 따라 타겟지정이 다름
-	printf("타겟 지정 :");
-	scanf_s("%d",&target);
+	target = 0;
+	for (int i = 0; i < ACTIVESKILL; i++)
+	{
+		if (player->askill[i].name != NULL) printf("[%d번] [%s]\t", i,player->askill[i].name);
+	}
 
-	printf("행동 선택 : ");
-	scanf_s("%d", &sel);
+	printf("남은 에너지 :  %d\n", player->cost);
+	
+	while (TRUE)
+	{
+		printf("\n행동 선택 : ");
+		scanf_s("%d", &sel);
 
-	PlayerAction(sel, target);
+		// 해당 행동이 있는지
+		if (player->askill[sel].name != NULL)
+		{
+			// 에너지가 충분한지
+			if (player->cost < player->askill[sel].cost)
+			{
+				printf("\n에너지 부족 ㅠㅠ");
+			}
+			// 실행
+			else break;
+		}
+		else printf("\n그런 행동 없음");
+	}
+
+	PlayerAction(sel);
 }
 
-void PlayerAction(int selAction, int target)
+void PlayerAction(int selAction)
 {
-	// TODO : 행동에 따른 스킬 발동
-	switch (selAction)
+	// 단일 공격이라면 타겟 지정
+	if (player->askill[selAction].type == SINGLE)
 	{
-	case 0:
-		printf("0 번 행동");
-		
-		break;
-	case 1:
-		printf("1 번 행동");
-		break;
-	default:
-		break;
+		while (TRUE)
+		{
+			printf("타겟을 지정하세요 :");
+			scanf_s("%d", &target);
+			if (battleEnemy[target].curhp != 0)
+			{
+				battleEnemy[target].curhp = battleEnemy[target].curhp - (player->askill[selAction].coefficient * player->att) / 100;
+				player->cost = player->cost - player->askill[selAction].cost;
+				break;
+			}
+			else
+			{
+				printf("아무것도 없습니다.");
+			}
+		}
+	}
+	// 범위 공격이라면 모두 공격
+	else
+	{
+		for (int i = 0; i < ENEMYCOUNT; i++)
+		{
+			if (battleEnemy[i].curhp != 0)
+			{
+				battleEnemy[i].curhp = battleEnemy[i].curhp - (player->askill[selAction].coefficient  * player->att) / 100;
+			}
+		}
+		player->cost = player->cost - player->askill[selAction].cost;
 	}
 }
 
@@ -77,8 +144,8 @@ void TempBattleUI()
 {
 	for (int i = 0; i < curEnemyCount; i++)
 	{
-		printf("[%d] 적 이름 : %s\n",i, battleEnemy[i].name);
+		printf("[%d] [%s] 의 체력 : %d\t\t",i + 1, battleEnemy[i].name, battleEnemy[i].curhp);
 	}
-	printf("\n");
-	printf("플레이어 이름 : %s\n", player->name);
+	printf("\n\n");
+	printf("[%s] 의 체력 : %d\n\n", player->name, player->curhp);
 }

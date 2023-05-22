@@ -7,7 +7,7 @@ void BattleSceneUpdate()
 	// 배틀씬 진입 시 초기화
 	EnterBattle();
 
-	while (TRUE)
+	while (!curMapNode->isClear)
 	{
 		// 플레이어 선 공격
 		PlayerTurn(player);

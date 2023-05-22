@@ -34,6 +34,7 @@ typedef struct enemy
 	*/
 	string	name;
 	string	info;
+
 	int		hp;
 	int     curhp;
 	int		att;
@@ -45,14 +46,14 @@ typedef struct enemy
 	int difficulty;
 }Enemy;
 
-Enemy enemy[Diffi][Count];
+Enemy enemy[Diffi][Count];		// 모든 적 정보 저장
 Enemy* enemyPtr[Count];
 
 
 // 함수 선언
 void EnemyElement(int _difficult, int _code, string _name, string _info, int _hp, int _att, int _attcount, int _def, int _difficulty);
 void EnemyPatternElemeny(int _difficult, int _code, int _count, string _name, int _type);
-void CreateEnemy(Enemy* _enemy, int _difficult, int _copycode);
+void AddEnemy(Enemy* _enemy, int _difficult, int _copycode);
 
 void EnemyInit()
 {
@@ -87,6 +88,7 @@ void EnemyElement(int _difficult, int _code, string _name, string _info, int _hp
 	enemy[_difficult][_code].name = _name;
 	enemy[_difficult][_code].info = _info;
 	enemy[_difficult][_code].hp = _hp;
+	enemy[_difficult][_code].curhp = _hp;
 	enemy[_difficult][_code].att = _att;
 	enemy[_difficult][_code].attcount = _attcount;
 	enemy[_difficult][_code].def = _def;
@@ -97,7 +99,7 @@ void EnemyPatternElemeny(int _difficult, int _code, int _count, string _name, in
 	enemy[_difficult][_code].pattern[_count].pattern = _type;
 }
 
-void CreateEnemy(Enemy *_enemy, int _difficult, int _copycode)
+void AddEnemy(Enemy *_enemy, int _difficult, int _copycode)
 {
 	*_enemy = enemy[_difficult][_copycode];
 }
