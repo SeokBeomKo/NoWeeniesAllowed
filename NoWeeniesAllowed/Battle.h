@@ -49,7 +49,7 @@ void ClearCheck()
 	isClear = 0;
 	for (int i = 0; i < ENEMYCOUNT;i++)
 	{
-		if (battleEnemy[i].curhp == 0)
+		if (battleEnemy[i].curhp <= 0)
 		{
 			isClear++;
 		}
@@ -57,7 +57,6 @@ void ClearCheck()
 	if (isClear == ENEMYCOUNT)
 	{
 		curMapNode->isClear = 1;
-		ChangeScene(MAP);
 	}
 }
 
@@ -142,6 +141,13 @@ void ExitBattle()
 
 void TempBattleUI()
 {
+	for (int i = 0; i < curEnemyCount; i++)
+	{
+		if (battleEnemy[i].curhp < 0)
+		{
+			battleEnemy[i].curhp = 0;
+		}
+	}
 	for (int i = 0; i < curEnemyCount; i++)
 	{
 		printf("[%d] [%s] ÀÇ Ã¼·Â : %d\t\t",i + 1, battleEnemy[i].name, battleEnemy[i].curhp);
