@@ -55,32 +55,17 @@ void EnemyElement(int _difficult, int _code, string _name, string _info, int _hp
 void EnemyPatternElemeny(int _difficult, int _code, int _count, string _name, int _type);
 void AddEnemy(Enemy* _enemy, int _difficult, int _copycode);
 
+void EasyInit();
+void NormalInit();
+void HardInit();
+
 void EnemyInit()
 {
 	// 모든 적 생성
 
-	// 등장 난이도 (0 ~ 2), 배열, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 스테이지 (0 ~ 2)
-	EnemyElement(0, 0, "0Tom", "일반 몬스터", 10, 1, 1, 0, 0);
-	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
-	EnemyPatternElemeny(0 ,0, 0, "멍 때리기", EIDLE);
-	EnemyPatternElemeny(0 ,0, 1, "때리기", EATTACK);
-	EnemyPatternElemeny(0 ,0, 2, "막기", EDEFFENSE);
-
-	// 등장 난이도 (0 ~ 2), 코드, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 난이도 (0 ~ 5) 012 123 234
-	EnemyElement(0, 1, "0Scooter", "일반 몬스터", 10, 1, 1, 0, 0);
-	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
-	EnemyPatternElemeny(0, 0, 0, "멍 때리기", EIDLE);
-	EnemyPatternElemeny(0, 0, 1, "때리기", EATTACK);
-	EnemyPatternElemeny(0, 0, 2, "막기", EDEFFENSE);
-
-	// 등장 난이도 (0 ~ 2), 코드, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 난이도 (0 ~ 5) 012 123 234
-	EnemyElement(0, 2, "0Nat", "일반 몬스터", 10, 1, 1, 0, 0);
-	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
-	EnemyPatternElemeny(0, 0, 0, "멍 때리기", EIDLE);
-	EnemyPatternElemeny(0, 0, 1, "때리기", EATTACK);
-	EnemyPatternElemeny(0, 0, 2, "막기", EDEFFENSE);
-
-
+	EasyInit();
+	NormalInit();
+	HardInit();
 }
 
 void EnemyElement(int _difficult, int _code, string _name, string _info, int _hp, int _att, int _attcount, int _def, int _difficulty)
@@ -104,3 +89,55 @@ void AddEnemy(Enemy *_enemy, int _difficult, int _copycode)
 	*_enemy = enemy[_difficult][_copycode];
 }
 
+void EasyInit()
+{
+	// 등장 난이도 (0 ~ 2), 배열, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 스테이지 (0 ~ 2)
+	EnemyElement(0, 0, "0Tom", "일반 몬스터", 10, 1, 1, 0, 0);
+	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
+	EnemyPatternElemeny(0, 0, 0, "멍 때리기", EIDLE);
+	EnemyPatternElemeny(0, 0, 1, "때리기", EATTACK);
+	EnemyPatternElemeny(0, 0, 2, "막기", EDEFFENSE);
+
+	// 등장 난이도 (0 ~ 2), 코드, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 난이도 (0 ~ 5) 012 123 234
+	EnemyElement(0, 1, "0Scooter", "일반 몬스터", 10, 1, 1, 0, 0);
+	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
+	EnemyPatternElemeny(0, 1, 0, "멍 때리기", EIDLE);
+	EnemyPatternElemeny(0, 1, 1, "때리기", EATTACK);
+	EnemyPatternElemeny(0, 1, 2, "막기", EDEFFENSE);
+
+	// 등장 난이도 (0 ~ 2), 코드, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 난이도 (0 ~ 5) 012 123 234
+	EnemyElement(0, 2, "0Nat", "일반 몬스터", 10, 1, 1, 0, 0);
+	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
+	EnemyPatternElemeny(0, 2, 0, "멍 때리기", EIDLE);
+	EnemyPatternElemeny(0, 2, 1, "때리기", EATTACK);
+	EnemyPatternElemeny(0, 2, 2, "막기", EDEFFENSE);
+}
+
+void NormalInit()
+{
+	// 등장 난이도 (0 ~ 2), 배열, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 스테이지 (0 ~ 2)
+	EnemyElement(1, 0, "1Tom", "일반 몬스터", 10, 1, 1, 0, 0);
+	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
+	EnemyPatternElemeny(1, 0, 0, "멍 때리기", EIDLE);
+	EnemyPatternElemeny(1, 0, 1, "때리기", EATTACK);
+	EnemyPatternElemeny(1, 0, 2, "막기", EDEFFENSE);
+
+	// 등장 난이도 (0 ~ 2), 코드, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 난이도 (0 ~ 5) 012 123 234
+	EnemyElement(1, 1, "1Scooter", "일반 몬스터", 10, 1, 1, 0, 0);
+	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
+	EnemyPatternElemeny(1, 1, 0, "멍 때리기", EIDLE);
+	EnemyPatternElemeny(1, 1, 1, "때리기", EATTACK);
+	EnemyPatternElemeny(1, 1, 2, "막기", EDEFFENSE);
+
+	// 등장 난이도 (0 ~ 2), 코드, 이름, 설명, 체력, 공격력, 공격횟수, 방어력, 출현 난이도 (0 ~ 5) 012 123 234
+	EnemyElement(1, 2, "1Nat", "일반 몬스터", 10, 1, 1, 0, 0);
+	// 등장 난이도 (0 ~ 2), 배열, 행동패턴 번호, 이름, 타입
+	EnemyPatternElemeny(1, 2, 0, "멍 때리기", EIDLE);
+	EnemyPatternElemeny(1, 2, 1, "때리기", EATTACK);
+	EnemyPatternElemeny(1, 2, 2, "막기", EDEFFENSE);
+}
+
+void HardInit()
+{
+
+}

@@ -13,7 +13,7 @@ void MainSceneUpdate()
 	GotoXY(45, 45); printf("Press Any Button");
 	SetConsoleTextColor(15);
 	_getch();
-	ChangeScene(MAP);
+	ChangeScene(OPTION);
 }
 
 void MainLogoRender()

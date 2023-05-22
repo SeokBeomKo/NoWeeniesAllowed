@@ -9,6 +9,7 @@ typedef struct player Player;
 
 struct player
 {
+	string nick;
 	string name;
 	PassiveSkill pskill[4];
 	ActiveSkill askill[ACTIVESKILL];

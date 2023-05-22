@@ -10,7 +10,6 @@
 
 typedef struct mapInfo MapInfo;
 typedef struct mapNode MapNode;
-//};
 
 // 구조체
 
@@ -34,7 +33,7 @@ struct mapNode
 	int isClear;		// 클리어한 장소인지
 	int isColumn;		// 몇번째 열인지
 
-	int difficulty;		// 현재 맵의 난이도 (난이도에 따라 소환되는 몬스터 종류가 다름)
+	int step;			// 현재 맵의 단계 (단계와 난이도에 따라 소환되는 몬스터 종류가 다름)
 	/*
 	다음 맵 노드를 가지고 있음
 	*/
@@ -148,7 +147,7 @@ void MapListCreate()
 				mapList[column][row].isClear = 0;
 				mapList[column][row].isColumn = column;
 				// 맵노드 단계 설정		0 0 0 1 1 1 2 2 2 3
-				mapList[column][row].difficulty = column / 3;
+				mapList[column][row].step = column / 3;
 
 				// 맵 타입 결정 0 : 전투, 1 : 보물, 2 : 함정
 				// 전투 80 보물 10 함정 10
@@ -163,7 +162,7 @@ void MapListCreate()
 					// TODO : 몬스터 정보 넣기, 함수화
 					for (int i = 0; i < mapList[column][row].info.enemyCount; i++)
 					{
-						AddEnemy(&mapList[column][row].info.enemy[i], difficulty, rand() % 3 + mapList[column][row].difficulty);
+						AddEnemy(&mapList[column][row].info.enemy[i], difficulty, rand() % 3 + mapList[column][row].step);
 					}
 				}
 				// 보물 맵

@@ -7,8 +7,9 @@
 #include "RewardScene.h"
 #include "TrapScene.h"
 #include "BossBattleScene.h"
+#include "OptionScene.h"
 
-int curScene = 0;
+SCENE_TYPE curScene;
 
 void EnterScene();
 void ExitScene();
@@ -17,34 +18,39 @@ void SceneUpdate()
 {
 	switch (curScene)
 	{
-	case 0:
+	case MAIN:
 		EnterScene();
 		MainSceneUpdate();
 		ExitScene();
 		break;
-	case 1:
+	case MAP:
 		EnterScene();
 		MapSceneUpdate();
 		ExitScene();
 		break;
-	case 2:
+	case BATTLE:
 		EnterScene();
 		BattleSceneUpdate();
 		ExitScene();
 		break;
-	case 3:
+	case REWARD:
 		EnterScene();
 		RewardSceneUpdate();
 		ExitScene();
 		break;
-	case 4:
+	case TRAP:
 		EnterScene();
 		TrapSceneUpdate();
 		ExitScene();
 		break;
-	case 5:
+	case BOSS:
 		EnterScene();
 		BossBattleSceneUpdate();
+		ExitScene();
+		break;
+	case OPTION:
+		EnterScene();
+		OptionSceneUpdate();
 		ExitScene();
 		break;
 	default:

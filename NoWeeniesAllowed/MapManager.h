@@ -6,7 +6,6 @@
 void MapManagerInit()
 {
 	MapIndexCreate();
-	MapListCreate();
 }
 
 void MapManagerUpdate()
