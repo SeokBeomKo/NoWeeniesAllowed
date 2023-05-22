@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClInclude Include="Battle.h" />
     <ClInclude Include="BattleScene.h" />
+    <ClInclude Include="BattleUI.h" />
     <ClInclude Include="BossBattleScene.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Enemy.h" />
@@ -149,6 +150,8 @@
     <ClInclude Include="Skill.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="TrapScene.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="UIManager.h" />
     <ClInclude Include="WFunc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

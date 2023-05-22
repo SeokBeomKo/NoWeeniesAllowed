@@ -33,5 +33,4 @@ void PlayerInit()
 	playerdata.curhp = 1;
 
 	playerdata.gold = 1;
-
 }

@@ -31,8 +31,8 @@ struct mapInfo
 	소환될 적 개체수
 	보상 (골드)
 	*/
-	Enemy enemy[3];
 	int type;
+	Enemy enemy[3];
 	int enemyCount;
 	int rewards;
 };
@@ -42,6 +42,8 @@ struct mapNode
 	int isStay;			// 플레이어가 위치했는지 확인
 	int isClear;		// 클리어한 장소인지
 	int isColumn;		// 몇번째 열인지
+
+	int difficulty;		// 현재 맵의 난이도 (난이도에 따라 소환되는 몬스터 종류가 다름)
 	/*
 	다음 맵 노드를 가지고 있음
 	*/
@@ -154,20 +156,22 @@ void MapListCreate()
 				mapList[column][row].isFull = 1;
 				mapList[column][row].isClear = 0;
 				mapList[column][row].isColumn = column;
+				// 맵 난이도 설정		0 0 0 1 1 1 2 2 2 3
+				mapList[column][row].difficulty = column / 3;
 
 				// 맵 타입 결정 0 : 전투, 1 : 보물, 2 : 함정
-				// 전투 60 보물 20 함정 20
+				// 전투 80 보물 10 함정 10
 				type = rand() % 10;
 
 				// 전투 맵
-				if (type < 6)		
+				if (type < 8)		
 				{
 					mapList[column][row].info.type = (int)BATTLE;
 					// 맵에 생성될 적 개체 수
 					mapList[column][row].info.enemyCount = rand() % 3 + 1;
 				}
 				// 보물 맵
-				else if (type < 8)
+				else if (type < 9)
 				{
 					mapList[column][row].info.type = (int)REWARD;
 				}

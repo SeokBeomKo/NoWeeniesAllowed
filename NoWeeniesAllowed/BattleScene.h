@@ -15,7 +15,8 @@ void BattleSceneUpdate()
 		// 적 공격
 		EnemyTurn();
 	}
-
+	// 배틀 씬 탈출 시 초기화
+	ExitBattle();
 
 	// TODO : 클리어 시 보상씬, 실패 시 메인 씬
 	ChangeScene(MAP);

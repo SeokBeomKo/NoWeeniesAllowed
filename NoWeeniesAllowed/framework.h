@@ -34,6 +34,7 @@ enum SCENE_TYPE
 #include <windows.h>
 
 // C 런타임 헤더 파일
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
@@ -46,6 +47,7 @@ enum SCENE_TYPE
 #include "GameManager.h"
 #include "MapManager.h"
 #include "SceneManager.h"
+#include "UIManager.h"
 
 
 

@@ -1,3 +1,3 @@
 #pragma once
 
-typedef char* string;
+typedef const char* string;
