@@ -9,6 +9,8 @@ typedef struct player Player;
 
 struct player
 {
+	const wchar_t* drawData;
+
 	string nick;
 	string name;
 	PassiveSkill pskill[4];
@@ -36,9 +38,9 @@ void PlayerInit()
 
 	playerdata.cost = COST;
 
-	playerdata.att = 100;
+	playerdata.att = 10;
 	playerdata.def = 0;
-	playerdata.hp = 10;
+	playerdata.hp = 100;
 
 	playerdata.curhp = playerdata.hp;
 

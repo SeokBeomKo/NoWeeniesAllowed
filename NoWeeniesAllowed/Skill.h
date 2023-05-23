@@ -2,17 +2,10 @@
 #include "framework.h"
 
 #define SKILLGRADE 3			// 등급
-#define SKILLCODE 10		// 총 스킬 종류
+#define SKILLCODE 10			// 총 스킬 종류
 
 typedef struct passiveskill PassiveSkill;
 typedef struct activeskill ActiveSkill;
-
-enum Buff
-{
-	ATTACK,
-	DEFENSE,
-	HEAL
-};
 
 typedef enum attacktype
 {
@@ -43,24 +36,18 @@ struct activeskill
 ActiveSkill activeSkill[SKILLGRADE][SKILLCODE];
 
 // 함수 선언
+void SkillEasyInit();
+void SkillNormalInit();
+void SkillHardInit();
 void SkillElement(int _code, int _grade, string _name, string _info, int _attcount, int _coefficient, AttackType _type, int _cost);
 void AddSkill(ActiveSkill* _active, int _code, int _grade);
 
 void SkillInit()
 {
 	// 모든 스킬 저장
-	// 코드, 등급, 이름, 설명, 공격횟수, 계수, 범단, 소모비용
-	SkillElement(0, 0, "꼬집기", "꼬집는다", 1, 50, SINGLE, 1);
-	SkillElement(1, 0, "때리기", "때린다", 1, 100, SINGLE, 2);
-	SkillElement(2, 0, "휘두르기", "휘두른다", 1, 50, RANGE, 2);
-
-	SkillElement(0, 1, "쎄게 꼬집기", "쎄게 꼬집는다", 1, 80, SINGLE, 1);
-	SkillElement(1, 1, "쎄게 때리기", "쎄게 때린다", 1, 120, SINGLE, 2);
-	SkillElement(2, 1, "쎄게 휘두르기", "쎄게 휘두른다", 1, 80, RANGE, 2);
-
-	SkillElement(0, 2, "진짜 쎄게 꼬집기", "진짜 쎄게 꼬집는다", 1, 100, SINGLE, 1);
-	SkillElement(1, 2, "진짜 쎄게 때리기", "진짜 쎄게 때린다", 1, 150, SINGLE, 2);
-	SkillElement(2, 2, "휘두르기", "휘두른다", 1, 100, RANGE, 2);
+	SkillEasyInit();
+	SkillNormalInit();
+	SkillHardInit();
 }
 
 void SkillElement(int _code, int _grade, string _name, string _info, int _attcount, int _coefficient, AttackType _type, int _cost)
@@ -90,6 +77,49 @@ void SkillElement(int _code, int _grade, string _name, string _info, int _attcou
 void AddSkill(ActiveSkill *_active, int _code, int _grade)
 {
 	*_active = activeSkill[_grade][_code];
+}
+
+void SkillEasyInit()
+{
+	// 코드, 등급, 이름, 설명, 공격횟수, 계수, 범단, 소모비용
+	SkillElement(0, 0, "꼬집기", "꼬집는다", 1, 50, SINGLE, 1);
+	SkillElement(1, 0, "때리기", "때린다", 1, 100, SINGLE, 2);
+	SkillElement(2, 0, "휘두르기", "휘두른다", 1, 50, RANGE, 2);
+	SkillElement(3, 0, "찌르기", "찌른다", 1, 100, SINGLE, 2);
+	SkillElement(4, 0, "휘두르기", "휘두른다", 1, 50, RANGE, 2);
+	SkillElement(5, 0, "휘두르기", "휘두른다", 1, 50, RANGE, 2);
+	SkillElement(6, 0, "휘두르기", "휘두른다", 1, 50, RANGE, 2);
+	SkillElement(7, 0, "휘두르기", "휘두른다", 1, 50, RANGE, 2);
+	SkillElement(8, 0, "휘두르기", "휘두른다", 1, 50, RANGE, 2);
+	SkillElement(9, 0, "휘두르기", "휘두른다", 1, 50, RANGE, 2);
+}
+
+void SkillNormalInit()
+{
+	SkillElement(0, 1, "쎄게 꼬집기", "쎄게 꼬집는다", 1, 70, SINGLE, 1);
+	SkillElement(1, 1, "쎄게 때리기", "쎄게 때린다", 1, 120, SINGLE, 2);
+	SkillElement(2, 1, "쎄게 휘두르기", "쎄게 휘두른다", 1, 80, RANGE, 2);
+	SkillElement(3, 1, "쎄게 찌르기", "쎄게 찌른다", 1, 120, SINGLE, 2);
+	SkillElement(4, 1, "쎄게 휘두르기", "쎄게 휘두른다", 1, 80, RANGE, 2);
+	SkillElement(5, 1, "쎄게 휘두르기", "쎄게 휘두른다", 1, 80, RANGE, 2);
+	SkillElement(6, 1, "쎄게 휘두르기", "쎄게 휘두른다", 1, 80, RANGE, 2);
+	SkillElement(7, 1, "쎄게 휘두르기", "쎄게 휘두른다", 1, 80, RANGE, 2);
+	SkillElement(8, 1, "쎄게 휘두르기", "쎄게 휘두른다", 1, 80, RANGE, 2);
+	SkillElement(9, 1, "쎄게 휘두르기", "쎄게 휘두른다", 1, 80, RANGE, 2);
+}
+
+void SkillHardInit()
+{
+	SkillElement(0, 2, "진짜 쎄게 꼬집기", "진짜 쎄게 꼬집는다", 1, 100, SINGLE, 1);
+	SkillElement(1, 2, "진짜 쎄게 때리기", "진짜 쎄게 때린다", 1, 150, SINGLE, 2);
+	SkillElement(2, 2, "진짜 쎄게 휘두르기", "진짜 쎄게 휘두른다", 1, 100, RANGE, 2);
+	SkillElement(3, 2, "진짜 쎄게 찌르기", "진짜 쎄게 찌른다", 1, 150, SINGLE, 2);
+	SkillElement(4, 2, "진짜 쎄게 휘두르기", "진짜 쎄게 휘두른다", 1, 100, RANGE, 2);
+	SkillElement(5, 2, "진짜 쎄게 휘두르기", "진짜 쎄게 휘두른다", 1, 100, RANGE, 2);
+	SkillElement(6, 2, "진짜 쎄게 휘두르기", "진짜 쎄게 휘두른다", 1, 100, RANGE, 2);
+	SkillElement(7, 2, "진짜 쎄게 휘두르기", "진짜 쎄게 휘두른다", 1, 100, RANGE, 2);
+	SkillElement(8, 2, "진짜 쎄게 휘두르기", "진짜 쎄게 휘두른다", 1, 100, RANGE, 2);
+	SkillElement(9, 2, "진짜 쎄게 휘두르기", "진짜 쎄게 휘두른다", 1, 100, RANGE, 2);
 }
 
 

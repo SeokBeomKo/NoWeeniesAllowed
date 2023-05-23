@@ -10,7 +10,6 @@ static int difficultySelect = 0;
 void InputName();
 void SelctDifficulty();
 void CheckDifficulty();
-void WelcomePrint();
 
 void OptionSceneUpdate()
 {
@@ -58,32 +57,37 @@ void SelctDifficulty()
 void CheckDifficulty()
 {
 	GotoXY(48, 20);
-	printf("hi");
 	switch (difficulty)
 	{
 	case 0:
 		player->nick = "졸렬한";
 		strdifficulty = "슈퍼 겁쟁이들의 쉼터";
+		player->drawData = L"Player\\EasyPlayer.txt";
 		break;
 	case 1:
 		player->nick = "옹졸한";
 		strdifficulty = "겁쟁이들의 쉼터";
+		player->drawData = L"Player\\NormalPlayer.txt";
 		break;
 	case 2:
 		player->nick = "사나이";
 		strdifficulty = "사나이 클럽";
+		player->drawData = L"Player\\HardPlayer.txt";
 		break;
 	default:
 		break;
 	}
-	GotoXY(46, 21);
-	printf("%s %s", player->nick, player->name);
 
-	GotoXY(42, 26);
-	printf("난이도 선택 : %s", strdifficulty);
+	FilePrintUni(player->drawData, 40, 5);
 
-	GotoXY(40, 30);
+	GotoXY(50, 35);
+	printf("%s 님 !", player->name);
+
+	GotoXY(40, 40);
+	printf("%s 난이도로 진행하시겠습니까 ?", strdifficulty);
+
+	GotoXY(43, 43);
 	printf("진행 : 1\t\t 다시 선택 : 2");
-	GotoXY(50, 31);
+	GotoXY(50, 45);
 	scanf_s("%d", &difficultySelect);
 }

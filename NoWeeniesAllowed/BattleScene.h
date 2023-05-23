@@ -11,7 +11,6 @@ void BattleSceneUpdate()
 	{
 		// 플레이어 선 공격
 		PlayerTurn(player);
-
 		// 적 공격
 		EnemyTurn();
 	}

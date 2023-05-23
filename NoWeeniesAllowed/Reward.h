@@ -41,7 +41,7 @@ void RewardCreate()
 	for (int i = 0; i < REWARDCOUNT; i++)
 	{
 		// 코드 0 ~ 9
-		code[i] = rand() % 3;
+		code[i] = rand() % SKILLCODE;
 		// 등급 0 ~ 2 , 0 ~ 99
 		grade[i] = rand() % 100;
 
@@ -78,16 +78,19 @@ void RewardDraw()
 	GotoXY(65, 10);
 	printf(" %s ", rewardSkill[2].grade);
 
-	GotoXY(28, 12);
-	printf("%s\n", rewardSkill[0].name);
-
-	GotoXY(45, 12);
-	printf("%s\n", rewardSkill[1].name);
-
-	GotoXY(61, 12);
-	printf("%s\n", rewardSkill[2].name);
+	for (int i = 0; i < REWARDCOUNT; i++)
+	{
+		GotoXY((i * 17) + 28, 12);
+		printf("%s  코스트 : %d", rewardSkill[i].name, rewardSkill[i].cost);
+		GotoXY((i * 17) + 28, 13);
+		if (rewardSkill[i].type == SINGLE) printf("단일 공격");
+		else printf("범위 공격");
+		GotoXY((i * 17) + 28, 15);
+		printf("%s\n", rewardSkill[i].info);
+	}
 
 	HaveSkillDraw();
+
 }
 
 void HaveSkillDraw()
