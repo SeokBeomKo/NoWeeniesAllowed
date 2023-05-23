@@ -1,20 +1,20 @@
-#pragma once
+ï»¿#pragma once
 #include "framework.h"
 
-//ÄÜ¼ÖÃ¢ Ãâ·Â»ö»óÀ» ³ªÅ¸³»´Â ÇÔ¼ö
+//ì½˜ì†”ì°½ ì¶œë ¥ìƒ‰ìƒì„ ë‚˜íƒ€ë‚´ëŠ” í•¨ìˆ˜
 void SetConsoleTextColor(int color_number) 
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color_number);
 }
 
-//ÄÜ¼Ö Ã¢ÀÇ Å©±â¿Í Á¦¸ñÀ» ÁöÁ¤ÇÏ´Â ÇÔ¼ö
+//ì½˜ì†” ì°½ì˜ í¬ê¸°ì™€ ì œëª©ì„ ì§€ì •í•˜ëŠ” í•¨ìˆ˜
 void SetConsoleView()
 {
     system("mode con:cols=100 lines=25");
     system("NoWeeniesAllowed");
 }
 
-//Ä¿¼­ÀÇ À§Ä¡¸¦ x, y·Î ÀÌµ¿ÇÏ´Â ÇÔ¼ö
+//ì»¤ì„œì˜ ìœ„ì¹˜ë¥¼ x, yë¡œ ì´ë™í•˜ëŠ” í•¨ìˆ˜
 void GotoXY(int x, int y)
 {
     COORD Pos;
@@ -45,4 +45,26 @@ void FilePrint(char * input_str, int x, int y)
         i++;
     }
     fclose(fp);
+}
+
+void FilePrintUni(wchar_t* input_str, int x, int y)
+{
+    _setmode(_fileno(stdout), _O_U16TEXT);
+
+    wchar_t str[100];
+    FILE* fp = NULL;
+    _wfopen_s(&fp, input_str, L"rt+,ccs=UTF-8");
+    if (fp == NULL) return;
+    int i = 0;
+    while (1)
+    {
+        wchar_t* pstr = fgetws(str, 100, fp);
+        if (pstr == NULL) break;
+        GotoXY(x, y + i);
+        wprintf(L"%s", str);
+        i++;
+    }
+    fclose(fp);
+
+    _setmode(_fileno(stdout), _O_TEXT);
 }

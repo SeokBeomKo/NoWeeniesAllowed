@@ -10,7 +10,8 @@ int isClearBattle = 0;
 Enemy battleEnemy[ENEMYCOUNT];
 int curEnemyCount;
 
-void TempBattleUI();
+void BattleUISet();
+void BattleUI();
 void PlayerActionSel();
 void PlayerAction(int selAction);
 void ClearCheck();
@@ -35,7 +36,7 @@ void PlayerTurn(Player *player)
 	while (!curMapNode->isClear)
 	{
 		// TODO : 배틀 UI 수정
-		TempBattleUI();
+		BattleUI();
 		PlayerActionSel();
 
 		ClearCheck();
@@ -63,7 +64,7 @@ void ClearCheck()
 
 void EnemyTurn()
 {
-	TempBattleUI();
+	BattleUI();
 
 	for(int i = 0; i < ENEMYCOUNT; i ++)
 	{
@@ -177,9 +178,13 @@ void ExitBattle()
 	// TODO : 배틀 씬 퇴장시 초기화
 }
 
-void TempBattleUI()
+void BattleUI()
 {
-	FilePrint("BattleUI.txt", 0, 0);
+	BattleUISet();
+
+	GotoXY(0,0);
+	
+
 	for (int i = 0; i < curEnemyCount; i++)
 	{
 		if (battleEnemy[i].curhp < 0)
@@ -190,6 +195,7 @@ void TempBattleUI()
 
 	for (int i = 0; i < curEnemyCount; i++)
 	{
+		// TODO : 해당 자리에 몬스터가 없다면 건너 뜀
 		printf("[%d] [%s] 의 체력 : %d\t\t",i + 1, battleEnemy[i].name, battleEnemy[i].curhp);
 	}
 	printf("\n\n");
@@ -197,4 +203,9 @@ void TempBattleUI()
 
 	// TODO : 몬스터 차례 끝나면 띄워주고 지우기
 	// system("cls");
+}
+
+void BattleUISet()
+{
+	PrintXY("───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",0,40);
 }

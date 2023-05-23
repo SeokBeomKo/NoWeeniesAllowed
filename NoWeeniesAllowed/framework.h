@@ -41,6 +41,8 @@ enum scene_type
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+#include <fcntl.h>
+#include <io.h>
 
 // Util
 #include "struct.h"
