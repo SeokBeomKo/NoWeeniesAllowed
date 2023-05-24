@@ -25,6 +25,7 @@ void ClearCheck();
 void ClearInput();
 void BattleUI();
 void BattleUISet();
+void PlayerInfoUI();
 
 
 void EnterBattle()
@@ -40,10 +41,11 @@ void EnterBattle()
 
 void PlayerTurn(Player *player)
 {
-	player->cost = COST;
+	player->curCost = player->cost;
 
-	while (player->cost != 0)
+	while (curMapNode->isClear == 0)
 	{
+		if (player->curCost == 0)	break;
 		BattleUI();
 
 		PlayerActionSel();
@@ -53,27 +55,25 @@ void PlayerTurn(Player *player)
 }
 void PlayerActionSel()
 {
-	GotoXY(0, 42);
-	target = 0;
-	for (int i = 0; i < ACTIVESKILL; i++)
-	{
-		if (player->askill[i].name != NULL) printf("[%d번 스킬] [%s]\t", i + 1,player->askill[i].name);
-	}
-
-	printf("남은 코스트 :  %d\n", player->cost);
-	
 	while (TRUE)
 	{
-		printf("\n스킬 선택 : ");
+		GotoXY(0, 42);
+		target = 0;
+		for (int i = 0; i < ACTIVESKILL; i++)
+		{
+			if (player->askill[i].name != NULL) printf("[%d번 스킬] [%s]\t", i + 1, player->askill[i].name);
+		}
+
+		printf("\n\n스킬 선택 : ");
 		scanf_s("%d", &sel);
 
 		// 해당 행동이 있는지
 		if (player->askill[sel - 1].name != NULL)
 		{
 			// 에너지가 충분한지
-			if (player->cost < player->askill[sel - 1].cost)
+			if (player->curCost < player->askill[sel - 1].cost)
 			{
-				printf("\n코스트가 부족합니다.");
+				printf("\n\n코스트가 부족합니다.");
 				_getch();
 				ClearInput();
 			}
@@ -82,7 +82,7 @@ void PlayerActionSel()
 		}
 		else
 		{
-			printf("\n그런 스킬 없음");
+			printf("\n\n그런 스킬 없음");
 			_getch();
 			ClearInput();
 		}
@@ -104,7 +104,7 @@ void PlayerAction(int selAction)
 			{
 				ClearInput();
 				battleEnemy[target - 1].curhp = battleEnemy[target - 1].curhp - dmg;
-				player->cost = player->cost - player->askill[selAction].cost;
+				player->curCost = player->curCost - player->askill[selAction].cost;
 				GotoXY(0,42);
 				printf("%s 을 사용하여 %s 에게 %d 의 데미지를 주었습니다.", player->askill[selAction].name ,battleEnemy[target - 1].name, dmg);
 				_getch();
@@ -139,7 +139,7 @@ void PlayerAction(int selAction)
 				ClearCheck();
 			}
 		}
-		player->cost = player->cost - player->askill[selAction].cost;
+		player->curCost = player->curCost - player->askill[selAction].cost;
 	}
 }
 
@@ -262,14 +262,32 @@ void BattleUI()
 		}
 	}
 	
+	PlayerInfoUI();
+}
+
+void PlayerInfoUI()
+{
 	// 플레이어 UI
 	FilePrintUni(player->drawData, 3, 5);
 
 	GotoXY(10, 3);
-	printf("[%s %s]",player->nick, player->name);
+	printf("[%s %s]", player->nick, player->name);
 	GotoXY(10, 33);
 	printf("체력 : %d / %d", player->hp, player->curhp);
+
+	GotoXY(17, 35);
+	for (int i = 0; i < player->cost; i++)
+	{
+		printf("○");
+	}
+	GotoXY(10, 35);
+	printf("잔여 코스트 : ");
+	for (int i = 0; i < player->curCost; i++)
+	{
+		printf("●");
+	}
 }
+
 void BattleUISet()
 {
 	PrintXY("───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",0,40);

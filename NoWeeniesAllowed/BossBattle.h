@@ -27,7 +27,7 @@ void ExitBossBattle()
 
 void BossPlayerTurn(Player* player)
 {
-	player->cost = COST;
+	player->curCost = player->cost;
 
 	while (player->cost != 0)
 	{
@@ -46,7 +46,6 @@ void BossPlayerActionSel()
 		if (player->askill[i].name != NULL) printf("[%d번 스킬] [%s]\t", i + 1, player->askill[i].name);
 	}
 
-	printf("남은 코스트 :  %d\n", player->cost);
 	while (TRUE)
 	{
 		printf("\n스킬 선택 : ");
@@ -56,7 +55,7 @@ void BossPlayerActionSel()
 		if (player->askill[sel - 1].name != NULL)
 		{
 			// 에너지가 충분한지
-			if (player->cost < player->askill[sel - 1].cost)
+			if (player->curCost < player->askill[sel - 1].cost)
 			{
 				printf("\n코스트가 부족합니다.");
 				_getch();
@@ -81,7 +80,7 @@ void BossPlayerAction(int selAction)
 
 	ClearInput();
 	battleBoss.curhp = battleBoss.curhp - dmg;
-	player->cost = player->cost - player->askill[selAction].cost;
+	player->curCost = player->curCost - player->askill[selAction].cost;
 	GotoXY(0, 42);
 	printf("%s 을 사용하여 %s 에게 %d 의 데미지를 주었습니다.", player->askill[selAction].name, battleBoss.name, dmg);
 	_getch();
@@ -151,11 +150,5 @@ void BossBattleUI()
 	GotoXY(16 + 53, 36);
 	printf("HP : %d / %d", battleBoss.hp, battleBoss.curhp);
 
-	// 플레이어 UI
-	FilePrintUni(player->drawData, 3, 5);
-
-	GotoXY(10, 3);
-	printf("[%s %s]", player->nick, player->name);
-	GotoXY(10, 33);
-	printf("체력 : %d / %d", player->hp, player->curhp);
+	PlayerInfoUI();
 }

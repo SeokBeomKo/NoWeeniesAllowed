@@ -38,6 +38,7 @@ void Reward()
 
 	RewardDraw();
 	RewardSelect();
+	curMapNode->isClear = 1;
 }
 
 void RewardCreate()

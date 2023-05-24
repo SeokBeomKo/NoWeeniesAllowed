@@ -162,7 +162,7 @@ void MapListCreate()
 				type = rand() % 10;
 
 				// 전투 맵
-				if (type < 0)		
+				if (type < 8)		
 				{
 					mapList[column][row].info.type = (int)BATTLE;
 					// 맵에 생성될 적 개체 수
@@ -173,7 +173,7 @@ void MapListCreate()
 					}
 				}
 				// 보물 맵
-				else if (type < 10)
+				else if (type < 9)
 				{
 					mapList[column][row].info.type = (int)REWARD;
 				}
@@ -357,20 +357,17 @@ void CurRender(MapNode node, int column)
 		SetConsoleTextColor(15);
 	}
 
-	// 지나온 노드
-	else if (node.isClear)
-	{
-		SetConsoleTextColor(4);
-		printf("■");
-		SetConsoleTextColor(15);
-	}
-
 	// 돌아갈 수 없는 노드
 	else if (node.isColumn <= clearcolumn)
 	{
-		SetConsoleTextColor(8);
+		if (node.isClear)		SetConsoleTextColor(4);
+		else					SetConsoleTextColor(8);
+
 		switch (node.info.type)
 		{
+		case 2:
+			printf("■");
+			break;
 		case 3:
 			printf("＄");
 			break;

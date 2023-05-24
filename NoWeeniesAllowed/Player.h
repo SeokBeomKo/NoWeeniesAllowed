@@ -17,6 +17,7 @@ struct player
 	ActiveSkill askill[ACTIVESKILL];
 
 	int cost;
+	int curCost;
 
 	int hp;
 	int curhp;
@@ -37,6 +38,7 @@ void PlayerInit()
 	playerdata.name = "°¡³ª´Ù";
 
 	playerdata.cost = COST;
+	playerdata.curCost = playerdata.cost;
 
 	playerdata.att = 10;
 	playerdata.def = 0;

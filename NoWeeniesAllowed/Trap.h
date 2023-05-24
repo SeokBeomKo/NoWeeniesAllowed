@@ -15,6 +15,7 @@ void Trap()
 	player->curhp = player->curhp - dmg;
 
 	_getch();
+	curMapNode->isClear = 1;
 }
 
 void SetDamage()
