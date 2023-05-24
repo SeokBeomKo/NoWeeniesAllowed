@@ -30,8 +30,14 @@ void PlayerInfoUI();
 
 void EnterBattle()
 {
-	curEnemyCount = curMapNode->info.enemyCount;
 	int i = 0;
+
+	for (i = 0; i < ENEMYCOUNT; i++)
+	{
+		battleEnemy[i].curhp = NULL;
+	}
+
+	curEnemyCount = curMapNode->info.enemyCount;
 
 	for (i = 0; i < curEnemyCount; i++)
 	{
@@ -48,7 +54,12 @@ void PlayerTurn(Player *player)
 		if (player->curCost == 0)	break;
 		BattleUI();
 
+		PrintXY("\33[2K", 0, 1);
+		SetConsoleTextColor(4);
+		PrintXY("▼", 12, 1);
+		SetConsoleTextColor(15);
 		PlayerActionSel();
+		if (sel == 5) break;
 
 		system("cls");
 	}
@@ -63,9 +74,12 @@ void PlayerActionSel()
 		{
 			if (player->askill[i].name != NULL) printf("[%d번 스킬] [%s]\t", i + 1, player->askill[i].name);
 		}
-
+		printf("\n(차례 넘기기 : 5)");
 		printf("\n\n스킬 선택 : ");
+		
 		scanf_s("%d", &sel);
+
+		if (sel == 5) break;
 
 		// 해당 행동이 있는지
 		if (player->askill[sel - 1].name != NULL)
@@ -73,7 +87,7 @@ void PlayerActionSel()
 			// 에너지가 충분한지
 			if (player->curCost < player->askill[sel - 1].cost)
 			{
-				printf("\n\n코스트가 부족합니다.");
+				printf("\n코스트가 부족합니다.");
 				_getch();
 				ClearInput();
 			}
@@ -87,8 +101,7 @@ void PlayerActionSel()
 			ClearInput();
 		}
 	}
-	
-	PlayerAction(sel - 1);
+	if (sel != 5) PlayerAction(sel - 1);
 }
 void PlayerAction(int selAction)
 {
@@ -116,6 +129,8 @@ void PlayerAction(int selAction)
 			{
 				printf("그곳엔 아무것도 없습니다.");
 				_getch();
+				PrintXY("\33[2K", 0, 48);
+				PrintXY("\33[2K", 0, 47);
 				PrintXY("\33[2K", 0, 46);
 				PrintXY("\33[2K", 0, 45);
 			}
@@ -147,12 +162,17 @@ void EnemyTurn()
 {
 	if (curMapNode->isClear == 1) return;
 	BattleUI();
-
+	
 	for(int i = 0; i < ENEMYCOUNT; i ++)
 	{
 		// 현재 차례의 몹이 살아있다면
 		if (battleEnemy[i].curhp != 0)
 		{
+			PrintXY("\33[2K", 0, 1);
+			SetConsoleTextColor(4);
+			PrintXY("▼", (i * 16)+ 57, 1);
+			SetConsoleTextColor(15);
+			ClearInput();
 			EnemyAction(battleEnemy[i]);
 		}
 	}
@@ -217,6 +237,10 @@ void ClearInput()
 	PrintXY("\33[2K", 0, 44);
 	PrintXY("\33[2K", 0, 45);
 	PrintXY("\33[2K", 0, 46);
+	PrintXY("\33[2K", 0, 47);
+	PrintXY("\33[2K", 0, 48);
+	PrintXY("\33[2K", 0, 49);
+	PrintXY("\33[2K", 0, 50);
 }
 void BattleUI()
 {

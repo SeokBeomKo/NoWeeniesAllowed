@@ -34,22 +34,27 @@ void BossPlayerTurn(Player* player)
 		BossBattleUI();
 		
 		BossPlayerActionSel();
+		if (sel == 5) break;
 
 		system("cls");
 	}
 }
 void BossPlayerActionSel()
 {
-	GotoXY(0, 42);
-	for (int i = 0; i < ACTIVESKILL; i++)
-	{
-		if (player->askill[i].name != NULL) printf("[%d번 스킬] [%s]\t", i + 1, player->askill[i].name);
-	}
-
 	while (TRUE)
 	{
-		printf("\n스킬 선택 : ");
+		GotoXY(0, 42);
+		target = 0;
+		for (int i = 0; i < ACTIVESKILL; i++)
+		{
+			if (player->askill[i].name != NULL) printf("[%d번 스킬] [%s]\t", i + 1, player->askill[i].name);
+		}
+		printf("\n(차례 넘기기 : 5)");
+		printf("\n\n스킬 선택 : ");
+
 		scanf_s("%d", &sel);
+
+		if (sel == 5) break;
 
 		// 해당 행동이 있는지
 		if (player->askill[sel - 1].name != NULL)
@@ -71,7 +76,7 @@ void BossPlayerActionSel()
 			ClearInput();
 		}
 	}
-	BossPlayerAction(sel - 1);
+	if (sel != 5) BossPlayerAction(sel - 1);
 }
 
 void BossPlayerAction(int selAction)
@@ -91,7 +96,7 @@ void BossPlayerAction(int selAction)
 void BossTurn()
 {
 	if (curMapNode->isClear == 1) return;
-
+	ClearInput();
 	BossBattleUI();
 
 	BossAction(battleBoss);

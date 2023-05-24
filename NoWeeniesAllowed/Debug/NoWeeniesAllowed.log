@@ -1,7 +1,8 @@
 ﻿  NoWeeniesAllowed.c
 D:\GitHub\NoWeeniesAllowed\NoWeeniesAllowed\MapGenerator.h(84,18): warning C4244: '함수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\GitHub\NoWeeniesAllowed\NoWeeniesAllowed\Battle.h(247,41): warning C4090: '함수': 'const' 한정자가 서로 다릅니다.
-D:\GitHub\NoWeeniesAllowed\NoWeeniesAllowed\Battle.h(271,31): warning C4090: '함수': 'const' 한정자가 서로 다릅니다.
-D:\GitHub\NoWeeniesAllowed\NoWeeniesAllowed\BossBattle.h(149,34): warning C4090: '함수': 'const' 한정자가 서로 다릅니다.
+D:\GitHub\NoWeeniesAllowed\NoWeeniesAllowed\Battle.h(37,30): warning C4047: '=': 'int'의 간접 참조 수준이 'void *'과(와) 다릅니다.
+D:\GitHub\NoWeeniesAllowed\NoWeeniesAllowed\Battle.h(271,41): warning C4090: '함수': 'const' 한정자가 서로 다릅니다.
+D:\GitHub\NoWeeniesAllowed\NoWeeniesAllowed\Battle.h(295,31): warning C4090: '함수': 'const' 한정자가 서로 다릅니다.
+D:\GitHub\NoWeeniesAllowed\NoWeeniesAllowed\BossBattle.h(154,34): warning C4090: '함수': 'const' 한정자가 서로 다릅니다.
 D:\GitHub\NoWeeniesAllowed\NoWeeniesAllowed\OptionScene.h(81,31): warning C4090: '함수': 'const' 한정자가 서로 다릅니다.
   NoWeeniesAllowed.vcxproj -> D:\GitHub\NoWeeniesAllowed\NoWeeniesAllowed\Debug\NoWeeniesAllowed.exe
