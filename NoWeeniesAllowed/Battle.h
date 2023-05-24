@@ -11,6 +11,7 @@ Enemy battleEnemy[ENEMYCOUNT];
 int curEnemyCount;
 
 void EnterBattle();
+void ExitBattle();
 
 void PlayerTurn(Player* player);
 void PlayerAction(int selAction);
@@ -41,16 +42,53 @@ void PlayerTurn(Player *player)
 {
 	player->cost = COST;
 
-	while (!curMapNode->isClear)
+	while (player->cost != 0)
 	{
 		BattleUI();
 
-		GotoXY(0, 42);
 		PlayerActionSel();
 
 		system("cls");
-		if (player->cost == 0) break;
 	}
+}
+void PlayerActionSel()
+{
+	GotoXY(0, 42);
+	target = 0;
+	for (int i = 0; i < ACTIVESKILL; i++)
+	{
+		if (player->askill[i].name != NULL) printf("[%d번 스킬] [%s]\t", i + 1,player->askill[i].name);
+	}
+
+	printf("남은 코스트 :  %d\n", player->cost);
+	
+	while (TRUE)
+	{
+		printf("\n스킬 선택 : ");
+		scanf_s("%d", &sel);
+
+		// 해당 행동이 있는지
+		if (player->askill[sel - 1].name != NULL)
+		{
+			// 에너지가 충분한지
+			if (player->cost < player->askill[sel - 1].cost)
+			{
+				printf("\n코스트가 부족합니다.");
+				_getch();
+				ClearInput();
+			}
+			// 실행
+			else break;
+		}
+		else
+		{
+			printf("\n그런 스킬 없음");
+			_getch();
+			ClearInput();
+		}
+	}
+	
+	PlayerAction(sel - 1);
 }
 void PlayerAction(int selAction)
 {
@@ -104,44 +142,6 @@ void PlayerAction(int selAction)
 		player->cost = player->cost - player->askill[selAction].cost;
 	}
 }
-void PlayerActionSel()
-{
-	target = 0;
-	for (int i = 0; i < ACTIVESKILL; i++)
-	{
-		if (player->askill[i].name != NULL) printf("[%d번 스킬] [%s]\t", i + 1,player->askill[i].name);
-	}
-
-	printf("남은 코스트 :  %d\n", player->cost);
-	
-	while (TRUE)
-	{
-		printf("\n스킬 선택 : ");
-		scanf_s("%d", &sel);
-
-		// 해당 행동이 있는지
-		if (player->askill[sel - 1].name != NULL)
-		{
-			// 에너지가 충분한지
-			if (player->cost < player->askill[sel - 1].cost)
-			{
-				printf("\n코스트가 부족합니다.");
-				_getch();
-				ClearInput();
-			}
-			// 실행
-			else break;
-		}
-		else
-		{
-			printf("\n그런 스킬 없음");
-			_getch();
-			ClearInput();
-		}
-	}
-	
-	PlayerAction(sel - 1);
-}
 
 void EnemyTurn()
 {
@@ -162,7 +162,7 @@ void EnemyTurn()
 }
 void EnemyAction(Enemy enemy)
 {
-	// TODO : 몬스터의 다양한 패턴 구현
+	// TODO : 적의 다양한 패턴 구현
 	int pattern = rand() % 2;
 	int dmg;
 

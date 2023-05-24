@@ -6,21 +6,21 @@
 #define Count 12
 #define Diffi 3
 
-typedef enum patterntype
+typedef enum enemypatterntype
 {
 	EATTACK,
-	EDEFFENSE,
 	EHEAL,
+	EDEFFENSE,
 	EDEBUFF,
 	EBUFF,
 	EIDLE
 
-}PatternType;
+}EnemyPatternType;
 
 typedef struct enemypattern
 {
 	string name;			// 패턴 이름
-	PatternType pattern;	// 패턴 타입
+	EnemyPatternType pattern;	// 패턴 타입
 }EnemyPattern;
 
 typedef struct enemy
@@ -49,14 +49,13 @@ typedef struct enemy
 }Enemy;
 
 Enemy enemy[Diffi][Count];		// 모든 적 정보 저장
-Enemy* enemyPtr[Count];
 
 
 // 함수 선언
 void EnemyInit();
 
 void EnemyElement(int _difficult, int _code, string _name, string _info, int _hp, int _att, int _attcount, int _def, int _difficulty, const wchar_t* _drawData);
-void EnemyPatternElemeny(int _difficult, int _code, int _count, string _name, PatternType _type);
+void EnemyPatternElemeny(int _difficult, int _code, int _count, string _name, EnemyPatternType _type);
 void AddEnemy(Enemy* _enemy, int _difficult, int _copycode);
 
 void EnemyEasyInit();
@@ -84,7 +83,7 @@ void EnemyElement(int _difficult, int _code, string _name, string _info, int _hp
 
 	enemy[_difficult][_code].drawData = _drawData;
 }
-void EnemyPatternElemeny(int _difficult, int _code, int _count, string _name, PatternType _type)
+void EnemyPatternElemeny(int _difficult, int _code, int _count, string _name, EnemyPatternType _type)
 {
 	enemy[_difficult][_code].pattern[_count].name = _name;
 	enemy[_difficult][_code].pattern[_count].pattern = _type;

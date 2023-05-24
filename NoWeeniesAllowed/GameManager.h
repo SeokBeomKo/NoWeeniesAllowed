@@ -15,6 +15,7 @@ void GameManagerInit()
 	SkillInit();
 	PlayerInit();
 	EnemyInit();
+	BossInit();
 }
 
 void GameManagerUpdate()
