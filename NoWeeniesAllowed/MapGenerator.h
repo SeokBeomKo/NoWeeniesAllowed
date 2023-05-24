@@ -16,7 +16,7 @@ typedef struct mapNode MapNode;
 struct mapInfo
 {
 	/*
-	타입 : (일반 전투맵 : 2, 보상맵 : 3, 함정맵 : 4)
+	타입 : (일반 전투맵 : 2, 보상맵 : 3, 함정맵 : 4, 보스맵 : 5)
 	소환될 적 정보 (0 ~ 3)
 	소환될 적 개체수
 	보상 (골드)
@@ -72,6 +72,7 @@ void MapDoubleCheck();
 
 void MapListCreate();
 void MapNodeAdd(int column, int row);
+void BossNodeAdd(int row);
 
 void StageRender();
 void CurRender(MapNode node, int column);
@@ -142,6 +143,8 @@ void MapListCreate()
 	enterMapNode.straightNode = &mapList[0][1];
 	enterMapNode.rightNode = &mapList[0][2];
 
+	exitMapNode.info.type = (int)BOSS;
+
 	for (column = 0; column < COLUMN; column++)
 	{
 		for (row = 0; row < ROW; row++)
@@ -159,7 +162,7 @@ void MapListCreate()
 				type = rand() % 10;
 
 				// 전투 맵
-				if (type < 8)		
+				if (type < 0)		
 				{
 					mapList[column][row].info.type = (int)BATTLE;
 					// 맵에 생성될 적 개체 수
@@ -170,7 +173,7 @@ void MapListCreate()
 					}
 				}
 				// 보물 맵
-				else if (type < 9)
+				else if (type < 10)
 				{
 					mapList[column][row].info.type = (int)REWARD;
 				}
@@ -180,6 +183,7 @@ void MapListCreate()
 					mapList[column][row].info.type = (int)TRAP;
 				}
 				MapNodeAdd(column, row);
+				if (column == COLUMN - 1) BossNodeAdd(row);
 			}
 		}
 	}
@@ -198,6 +202,24 @@ void MapNodeAdd(int column, int row)
 	if (mapIndex[column + 1][row + 1] == 1 && row != ROW - 1)
 	{
 		mapList[column][row].rightNode = &mapList[column + 1][row + 1];
+	}
+}
+
+void BossNodeAdd(int row)
+{
+	switch (row)
+	{
+	case 0:
+		mapList[COLUMN - 1][row].rightNode = &exitMapNode;
+		break;
+	case 1:
+		mapList[COLUMN - 1][row].straightNode = &exitMapNode;
+		break;
+	case 2:
+		mapList[COLUMN - 1][row].leftNode = &exitMapNode;
+		break;
+	default:
+		break;
 	}
 }
 

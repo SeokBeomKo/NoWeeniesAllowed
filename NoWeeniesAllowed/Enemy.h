@@ -53,6 +53,8 @@ Enemy* enemyPtr[Count];
 
 
 // 함수 선언
+void EnemyInit();
+
 void EnemyElement(int _difficult, int _code, string _name, string _info, int _hp, int _att, int _attcount, int _def, int _difficulty, const wchar_t* _drawData);
 void EnemyPatternElemeny(int _difficult, int _code, int _count, string _name, PatternType _type);
 void AddEnemy(Enemy* _enemy, int _difficult, int _copycode);

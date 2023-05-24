@@ -134,6 +134,8 @@
     <ClInclude Include="BattleManager.h" />
     <ClInclude Include="BattleScene.h" />
     <ClInclude Include="BattleUI.h" />
+    <ClInclude Include="Boss.h" />
+    <ClInclude Include="BossBattle.h" />
     <ClInclude Include="BossBattleScene.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Enemy.h" />
