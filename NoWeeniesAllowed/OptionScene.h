@@ -7,6 +7,7 @@ static string strdifficulty;
 
 static int difficultySelect = 0;
 
+void OptionSceneUpdate();
 void InputName();
 void SelctDifficulty();
 void CheckDifficulty();
@@ -17,10 +18,7 @@ void OptionSceneUpdate()
 	InputName();
 	while (difficultySelect != 1)
 	{
-		
-		system("cls");
 		SelctDifficulty();
-		system("cls");
 
 		CheckDifficulty();
 	}
@@ -40,6 +38,7 @@ void InputName()
 
 void SelctDifficulty()
 {
+	system("cls");
 	GotoXY(45,15);
 	printf("난이도를 선택하세요");
 
@@ -56,6 +55,7 @@ void SelctDifficulty()
 
 void CheckDifficulty()
 {
+	system("cls");
 	GotoXY(48, 20);
 	switch (difficulty)
 	{

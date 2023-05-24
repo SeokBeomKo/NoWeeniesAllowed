@@ -1,20 +1,27 @@
 ﻿#pragma once
 #include "framework.h"
 
-//콘솔창 출력색상을 나타내는 함수
+void SetConsoleTextColor(int color_number);
+void SetConsoleView();
+void GotoXY(int x, int y);
+void PrintXY(string print, int x, int y);
+void FilePrint(char* input_str, int x, int y);
+void FilePrintUni(wchar_t* input_str, int x, int y);
+
+// 콘솔창 출력색상을 나타내는 함수
 void SetConsoleTextColor(int color_number) 
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color_number);
 }
 
-//콘솔 창의 크기와 제목을 지정하는 함수
+// 콘솔 창의 크기와 제목을 지정하는 함수
 void SetConsoleView()
 {
     system("mode con:cols=100 lines=25");
     system("NoWeeniesAllowed");
 }
 
-//커서의 위치를 x, y로 이동하는 함수
+// 커서의 위치를 x, y로 이동하는 함수
 void GotoXY(int x, int y)
 {
     COORD Pos;
@@ -23,12 +30,14 @@ void GotoXY(int x, int y)
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Pos);
 }
 
+// x, y 위치에서 출력
 void PrintXY(string print,int x, int y)
 {
     GotoXY(x, y);
     printf("%s", print);
 }
 
+// 텍스트 파일 출력
 void FilePrint(char * input_str, int x, int y)
 {
     char str[100];
@@ -46,7 +55,7 @@ void FilePrint(char * input_str, int x, int y)
     }
     fclose(fp);
 }
-
+// 텍스트 파일 출력 (유니코드)
 void FilePrintUni(wchar_t* input_str, int x, int y)
 {
     _setmode(_fileno(stdout), _O_U16TEXT);

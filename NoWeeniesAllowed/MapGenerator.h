@@ -67,8 +67,13 @@ MapNode *curMapNode;
 
 void SetConsoleTextColor(int color_number);
 
+void MapIndexCreate();
 void MapDoubleCheck();
+
+void MapListCreate();
 void MapNodeAdd(int column, int row);
+
+void StageRender();
 void CurRender(MapNode node, int column);
 void CurDirRender(int dir, int column);
 
@@ -179,7 +184,6 @@ void MapListCreate()
 		}
 	}
 }
-
 void MapNodeAdd(int column, int row)
 {
 	// 다음 노드 정보 넣기
@@ -196,7 +200,6 @@ void MapNodeAdd(int column, int row)
 		mapList[column][row].rightNode = &mapList[column + 1][row + 1];
 	}
 }
-
 
 // 맵 그리기 기능
 void EnterRender()

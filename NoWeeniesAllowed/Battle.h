@@ -10,22 +10,21 @@ int isClearBattle = 0;
 Enemy battleEnemy[ENEMYCOUNT];
 int curEnemyCount;
 
-void BattleUISet();
-void BattleUI();
-void PlayerActionSel();
-void PlayerAction(int selAction);
-void ClearCheck();
-void EnemyAction(Enemy enemy);
-void ClearInput();
+void EnterBattle();
 
-void ClearInput()
-{
-	PrintXY("\33[2K", 0, 42);
-	PrintXY("\33[2K", 0, 43);
-	PrintXY("\33[2K", 0, 44);
-	PrintXY("\33[2K", 0, 45);
-	PrintXY("\33[2K", 0, 46);
-}
+void PlayerTurn(Player* player);
+void PlayerAction(int selAction);
+void PlayerActionSel();
+
+void EnemyTurn();
+void EnemyAction(Enemy enemy);
+
+void ClearCheck();
+
+void ClearInput();
+void BattleUI();
+void BattleUISet();
+
 
 void EnterBattle()
 {
@@ -53,109 +52,6 @@ void PlayerTurn(Player *player)
 		if (player->cost == 0) break;
 	}
 }
-
-void ClearCheck()
-{
-	isClearBattle = 0;
-	for (int i = 0; i < ENEMYCOUNT;i++)
-	{
-		if (battleEnemy[i].curhp <= 0)
-		{
-			isClearBattle++;
-		}
-	}
-	if (isClearBattle == ENEMYCOUNT)
-	{
-		ClearInput();
-
-		PrintXY("적이 모두 죽었습니다...",0,42);
-		curMapNode->isClear = 1;
-
-		_getch();
-	}
-}
-
-void EnemyTurn()
-{
-	if (curMapNode->isClear == 1) return;
-	BattleUI();
-
-	GotoXY(0, 42);
-	for(int i = 0; i < ENEMYCOUNT; i ++)
-	{
-		// 현재 차례의 몹이 살아있다면
-		if (battleEnemy[i].curhp != 0)
-		{
-			EnemyAction(battleEnemy[i]);
-		}
-	}
-
-	ClearInput();
-	system("cls");
-}
-
-void EnemyAction(Enemy enemy)
-{
-	// TODO : 몬스터의 다양한 패턴 구현
-	int pattern = rand() % 2;
-	int dmg;
-
-	switch (pattern)
-	{
-	case 0:
-		if (enemy.att - player->def < 0) dmg = 0;
-		dmg = enemy.att - player->def;
-		player->curhp = player->curhp - dmg;
-		printf("%s 에게 공격당했습니다.\n%d 만큼 피 닳았음\n",enemy.name, dmg);
-		break;
-	case 1:
-		printf("%s 는 아무것도 하지 않았습니다.\n", enemy.name);
-		break;
-	default:
-		break;
-	}
-	_getch();
-}
-
-void PlayerActionSel()
-{
-	target = 0;
-	for (int i = 0; i < ACTIVESKILL; i++)
-	{
-		if (player->askill[i].name != NULL) printf("[%d번 스킬] [%s]\t", i + 1,player->askill[i].name);
-	}
-
-	printf("남은 코스트 :  %d\n", player->cost);
-	
-	while (TRUE)
-	{
-		printf("\n스킬 선택 : ");
-		scanf_s("%d", &sel);
-
-		// 해당 행동이 있는지
-		if (player->askill[sel - 1].name != NULL)
-		{
-			// 에너지가 충분한지
-			if (player->cost < player->askill[sel - 1].cost)
-			{
-				printf("\n코스트가 부족합니다.");
-				_getch();
-				ClearInput();
-			}
-			// 실행
-			else break;
-		}
-		else
-		{
-			printf("\n그런 스킬 없음");
-			_getch();
-			ClearInput();
-		}
-	}
-	
-	PlayerAction(sel - 1);
-}
-
 void PlayerAction(int selAction)
 {
 	int dmg = (player->askill[selAction].coefficient * player->att) / 100;
@@ -200,9 +96,110 @@ void PlayerAction(int selAction)
 				printf("%s 을 사용하여 %s 에게 %d 의 데미지를 주었습니다.", player->askill[selAction].name, battleEnemy[i].name, dmg);
 				_getch();
 				ClearInput();
+				ClearCheck();
 			}
 		}
 		player->cost = player->cost - player->askill[selAction].cost;
+	}
+}
+void PlayerActionSel()
+{
+	target = 0;
+	for (int i = 0; i < ACTIVESKILL; i++)
+	{
+		if (player->askill[i].name != NULL) printf("[%d번 스킬] [%s]\t", i + 1,player->askill[i].name);
+	}
+
+	printf("남은 코스트 :  %d\n", player->cost);
+	
+	while (TRUE)
+	{
+		printf("\n스킬 선택 : ");
+		scanf_s("%d", &sel);
+
+		// 해당 행동이 있는지
+		if (player->askill[sel - 1].name != NULL)
+		{
+			// 에너지가 충분한지
+			if (player->cost < player->askill[sel - 1].cost)
+			{
+				printf("\n코스트가 부족합니다.");
+				_getch();
+				ClearInput();
+			}
+			// 실행
+			else break;
+		}
+		else
+		{
+			printf("\n그런 스킬 없음");
+			_getch();
+			ClearInput();
+		}
+	}
+	
+	PlayerAction(sel - 1);
+}
+
+void EnemyTurn()
+{
+	if (curMapNode->isClear == 1) return;
+	BattleUI();
+
+	GotoXY(0, 42);
+	for(int i = 0; i < ENEMYCOUNT; i ++)
+	{
+		// 현재 차례의 몹이 살아있다면
+		if (battleEnemy[i].curhp != 0)
+		{
+			EnemyAction(battleEnemy[i]);
+		}
+	}
+
+	ClearInput();
+	system("cls");
+}
+void EnemyAction(Enemy enemy)
+{
+	// TODO : 몬스터의 다양한 패턴 구현
+	int pattern = rand() % 2;
+	int dmg;
+
+	switch (pattern)
+	{
+	case 0:
+		if (enemy.att - player->def < 0) dmg = 0;
+		dmg = enemy.att - player->def;
+		player->curhp = player->curhp - dmg;
+		printf("%s 에게 공격당했습니다.\n%d 만큼 피 닳았음\n",enemy.name, dmg);
+		break;
+	case 1:
+		printf("%s 는 아무것도 하지 않았습니다.\n", enemy.name);
+		break;
+	default:
+		break;
+	}
+	_getch();
+}
+
+void ClearCheck()
+{
+	isClearBattle = 0;
+	for (int i = 0; i < ENEMYCOUNT;i++)
+	{
+		if (battleEnemy[i].curhp <= 0)
+		{
+			isClearBattle++;
+		}
+	}
+	if (isClearBattle == ENEMYCOUNT)
+	{
+		ClearInput();
+
+		PrintXY("적이 모두 죽었습니다...",0,42);
+		curMapNode->isClear = 1;
+
+		_getch();
 	}
 }
 
@@ -211,6 +208,14 @@ void ExitBattle()
 	// TODO : 배틀 씬 퇴장시 초기화
 }
 
+void ClearInput()
+{
+	PrintXY("\33[2K", 0, 42);
+	PrintXY("\33[2K", 0, 43);
+	PrintXY("\33[2K", 0, 44);
+	PrintXY("\33[2K", 0, 45);
+	PrintXY("\33[2K", 0, 46);
+}
 void BattleUI()
 {
 	BattleUISet();
@@ -263,7 +268,6 @@ void BattleUI()
 	GotoXY(10, 33);
 	printf("체력 : %d / %d", player->hp, player->curhp);
 }
-
 void BattleUISet()
 {
 	PrintXY("───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────",0,40);

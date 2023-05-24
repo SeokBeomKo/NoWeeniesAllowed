@@ -9,6 +9,7 @@ int scanMove;
 // ÇÔ¼ö
 
 void ChangeScene(SCENE_TYPE scene);
+
 void Move(int sel);
 void MoveFunc(MapNode* node);
 void SelectMove();

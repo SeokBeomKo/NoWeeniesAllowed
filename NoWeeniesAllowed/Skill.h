@@ -36,6 +36,8 @@ struct activeskill
 ActiveSkill activeSkill[SKILLGRADE][SKILLCODE];
 
 // 함수 선언
+
+void SkillInit();
 void SkillEasyInit();
 void SkillNormalInit();
 void SkillHardInit();

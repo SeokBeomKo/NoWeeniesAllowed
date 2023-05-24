@@ -13,6 +13,8 @@ SCENE_TYPE curScene;
 
 void EnterScene();
 void ExitScene();
+void SceneUpdate();
+
 
 void SceneUpdate()
 {

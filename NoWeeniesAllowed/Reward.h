@@ -16,12 +16,16 @@ static int diffiChance;
 static ActiveSkill rewardSkill[REWARDCOUNT];
 
 void EnterReward();
+
 void Reward();
+
 void RewardCreate();
 void RewardDraw();
-void DeleteSkill();
 void RewardSelect();
+
 void HaveSkillDraw();
+void DeleteSkill();
+
 
 void EnterReward()
 {

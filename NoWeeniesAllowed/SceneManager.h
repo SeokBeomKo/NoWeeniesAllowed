@@ -2,7 +2,8 @@
 #include "framework.h"
 #include "Scene.h"
 
-
+void SceneManagerInit();
+void SceneManagerUpdate();
 void ChangeScene(SCENE_TYPE scene);
 void EnterScene();
 void ExitScene();
