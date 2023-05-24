@@ -92,10 +92,12 @@ void PlayerAction(int selAction)
 			if (battleEnemy[i].curhp != 0)
 			{
 				battleEnemy[i].curhp = battleEnemy[i].curhp - dmg;
+				ClearInput();
+
 				GotoXY(0, 42);
 				printf("%s 을 사용하여 %s 에게 %d 의 데미지를 주었습니다.", player->askill[selAction].name, battleEnemy[i].name, dmg);
 				_getch();
-				ClearInput();
+				
 				ClearCheck();
 			}
 		}
@@ -146,7 +148,6 @@ void EnemyTurn()
 	if (curMapNode->isClear == 1) return;
 	BattleUI();
 
-	GotoXY(0, 42);
 	for(int i = 0; i < ENEMYCOUNT; i ++)
 	{
 		// 현재 차례의 몹이 살아있다면
@@ -165,6 +166,7 @@ void EnemyAction(Enemy enemy)
 	int pattern = rand() % 2;
 	int dmg;
 
+	GotoXY(0, 42);
 	switch (pattern)
 	{
 	case 0:
