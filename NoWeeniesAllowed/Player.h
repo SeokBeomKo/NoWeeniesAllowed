@@ -47,6 +47,4 @@ void PlayerInit()
 	playerdata.gold = 0;
 
 	AddSkill(&playerdata.askill[0], 0, 0);
-	AddSkill(&playerdata.askill[1], 1, 0);
-	AddSkill(&playerdata.askill[2], 2, 0);
 }
